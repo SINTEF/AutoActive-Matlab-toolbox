@@ -29,7 +29,7 @@ How to update the MatlabToolbox
 6) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
 7) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
 8) Update version information
-9) Check that MATLAB path has nine entries + examples, remove .../help_p_files
+9) Check that MATLAB path has eight entries + examples, (remove .../help_p_files if any)
 10) Check that Java Class Path has one correct jar entry
 11) Create package in menu 'Package => Package'
 12) Save project in meny 'Save => Save'
