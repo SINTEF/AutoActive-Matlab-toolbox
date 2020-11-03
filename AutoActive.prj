@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="2328949494" file="C:\Users\aliv\work\autoactive-matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive-matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="262599229" file="C:\Users\aliv\work\autoactive-matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive-matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>AutoActive Research Environment Toolbox</param.appname>
     <param.authnamewatermark>Anders Liverud</param.authnamewatermark>
     <param.email>anders.liverud@sintef.no</param.email>
@@ -15,7 +15,7 @@ Key Features
 - Convertion between AAZ formats and MATLAB formats
 - Merging av data and video from multiple sensor systems for time synchronziation and data analysis/viewing</param.description>
     <param.screenshot>${PROJECT_ROOT}\AutoActive.JPG</param.screenshot>
-    <param.version>0.9.10</param.version>
+    <param.version>1.0.0</param.version>
     <param.output>${PROJECT_ROOT}\AutoActive Research Environment Toolbox.mltbx</param.output>
     <param.products.name />
     <param.products.id />

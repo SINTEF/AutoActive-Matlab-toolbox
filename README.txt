@@ -1,5 +1,6 @@
 AutoActive Matlab toolbox
 =========================
+Updated 03.Nov.2020
 
 This repository conatins files needed to make a Matlab toolbox for AutoActive
 How to update the java jar file
@@ -25,20 +26,17 @@ How to update the MatlabToolbox
 3) Update the Matlab toolkit source code with any changes
 4) Update the version information in 'MatlabToolbox/+autoactive/MatlabVersion.m'
 5) Start Matlab R2018b and make autoactive-matlab-toolbox active folder
-
---> ok hit
-
-5) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
-6) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
-7) Update version information
-8) Check that MATLAB path has nine entries + examples, remove .../help_p_files
-9) Check that Java Class Path has one correct jar entry
-10) Create package in menu 'Package => Package'
-11) Save project in meny 'Save => Save'
-12) Rename and copy release package to AutoActive Konsortium WP2 Software release workplace
-13) Update ChangeLog in workspace
-14) Commit changes in autoactive-matlab repository
-14) Tag project in Stash with version number
+6) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
+7) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
+8) Update version information
+9) Check that MATLAB path has nine entries + examples, remove .../help_p_files
+10) Check that Java Class Path has one correct jar entry
+11) Create package in menu 'Package => Package'
+12) Save project in meny 'Save => Save'
+13) Rename and copy release package for distribution
+14) Update ChangeLog file
+15) Commit changes in autoactive-matlab-toolbox repository
+16) Tag project with version number in git
 
 How to install the toolbox in GUI
 1) Open Matlab
