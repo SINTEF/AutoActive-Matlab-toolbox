@@ -1,5 +1,5 @@
 function versionString = ToolboxVersion()
 
-	versionString = 'Autoactive matlab v0.9.9';
+	versionString = 'Autoactive matlab v0.9.10';
 end
         
