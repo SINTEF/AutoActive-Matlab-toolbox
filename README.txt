@@ -1,4 +1,7 @@
-This repo conatins all files needed to make a Matlab toolbox for AutoActive
+AutoActive Matlab toolbox
+=========================
+
+This repo conatins files needed to make a Matlab toolbox for AutoActive
 How to update the java jar file
 There is two java projects that contributes to the toolbox.
   The main project java-file-interface.
