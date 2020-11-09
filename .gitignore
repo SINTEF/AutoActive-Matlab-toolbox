@@ -2,7 +2,6 @@
 *.aaz
 *.asv
 /Compress2/commons-compress-1.19-src/target/
-/MatlabToolbox/jar/
 *.mltbx
 /MatlabToolbox/external/Physilog5MatlabToolKit_v*
 
