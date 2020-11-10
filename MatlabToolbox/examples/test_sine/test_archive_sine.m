@@ -1,5 +1,5 @@
+javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
 %************ Fetch source code and put it into a source object ************
-
 source_obj = autoactive.Source();
 this_script = mfilename('fullpath');
 source_obj = source_obj.addSourceFromFile([this_script '.m']);

@@ -1,5 +1,4 @@
-
-
+javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
 % Read table and metadata from original AutoActive Archive
 orig_ar = autoactive.ArchiveReader('testSine.aaz');
 

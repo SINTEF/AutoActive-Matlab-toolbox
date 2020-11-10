@@ -1,6 +1,6 @@
 close all, clear all, clc
+javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
 addpath('C:\YourWorkPath')
-
 %Read Data from existing archive
 ar = autoactive.ArchiveReader('YourArchive.aaz');
 list = ar.listSessions();
