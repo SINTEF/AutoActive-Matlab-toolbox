@@ -1,0 +1,17 @@
+# Changelog
+## [1.0.0] - 2020-11-03
+### Changed
+    - Updated to Physilog5MatlabToolKit_v1_5_0
+    - Updated documentation and repository for open source version
+
+## [0.9.1] - 2020-02-19
+### Changed
+	- Corrected version of Java jar file
+    - Corrected Matlab toolbox package description
+## [0.9.0] - 2020-02-18
+### Added
+	- Support for synchromize multiple video files in one session
+        - Folder with sample matlab scripts
+## [0.8.0]
+### Added
+	- Support for text columns in parquet tables
