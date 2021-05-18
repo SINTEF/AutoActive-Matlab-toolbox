@@ -1,7 +1,30 @@
-AutoActive Matlab toolbox
-=========================
-Updated 03.Nov.2020
+# AutoActive Matlab toolbox
+Updated 18 May 2021
 
+SINTEF - https://www.sintef.com
+
+## License
+Apache License Version 2.0
+
+## Description
+AutoActive Research Environment Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
+AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
+The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
+
+## System Requirements
+AutoActive Research Environment Toolbox requires a Matlab version r2018b or newer.
+The ffmpeg toolbox is required for synchromizing multiple videos within an archive, please see "MultipleVideoSync" documentation.
+
+## Features
+Import of sensor data from multiple sensor types and formats including videos
+Read and write AAZ archives from/to ActivityPresenter
+Convertion between AAZ formats and MATLAB formats
+Merging of data and video from multiple sensor systems for time synchronziation and data analysis/viewing
+
+## Examples
+Multiple examples are given in the GettingStarted section in the Matlab toolbox.
+
+## How to build the AutoActive Matlab toolbox
 This repository conatins files needed to make a Matlab toolbox for AutoActive
 How to update the java jar file
 There is two java projects that contributes to the toolbox.
@@ -19,7 +42,7 @@ There is two java projects that contributes to the toolbox.
 6) Remove any old jar file in 'MatlabToolbox/jar' directory
 7) Copy the new jar file 'Java/target/java-file-interface....jar-with-dependencies.jar' to 'MatlabToolbox/jar' directory
 
-How to update the MatlabToolbox
+## How to update the MatlabToolbox
 1) Code to be included is located in the 'MatlabToolbox' folder
 2) Download Gaitup Matlab ToolKit for Physilog®5 from https://research.gaitup.com/support/ and uncompress and copy the folder 
    Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external
@@ -38,12 +61,12 @@ How to update the MatlabToolbox
 15) Commit changes in autoactive-matlab-toolbox repository
 16) Tag project with version number in git
 
-How to install the toolbox in GUI
+## How to install the Matlab toolbox in the Matlab GUI
 1) Open Matlab
 2) Locate the folder with the file 'AutoActive.mltbx' and make it current folder in Matlab
 3) Double click the file to install it.
 
-How to install the toolbox in GUI
+## How to install the Matlab toolbox without using the GUI
 1) Open Matlab
 2) Find the location of the .mltbx file 
 3) Put the path into a string 
