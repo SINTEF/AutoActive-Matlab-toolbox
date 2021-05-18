@@ -69,7 +69,7 @@ There is two java projects that contributes to the toolbox.
 2) Locate the folder with the file 'AutoActive.mltbx' and make it current folder in Matlab
 3) Double click the file to install it.
 
-## How to install the Matlab toolbox without using the GUI
+## How to install the Matlab toolbox without using the Matlab GUI
 1) Open Matlab
 2) Find the location of the .mltbx file 
 3) Put the path into a string 
