@@ -16,7 +16,7 @@ The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives,
 ## System Requirements
 AutoActive Research Environment Toolbox requires a Matlab version r2018b or newer.
 
-The ffmpeg toolbox is required for synchromizing multiple videos within an archive, please see "MultipleVideoSync" documentation.
+The ffmpeg toolbox is required for synchromizing multiple videos within an archive, please see "MultipleVideoSync" documentation in the toolbox.
 
 ## Features
 - Import of sensor data from multiple sensor types and formats including videos
