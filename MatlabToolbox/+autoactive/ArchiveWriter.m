@@ -9,10 +9,30 @@ classdef ArchiveWriter < handle & autoactive.archive.Tracer
 		isOpen
     end
     
+    methods(Static)
+        function ret = isLegalPath(str)
+            ret = true;
+            try
+                java.io.File(str).toPath;
+            catch
+                ret = false;
+            end
+        end
+    end
+         
+    
     methods
         function obj = ArchiveWriter(path)
+            newpath = fullfile(pwd, path);
+            if ~obj.isLegalPath(newpath)
+                newpath = path;
+                if ~obj.isLegalPath(newpath)
+                    error("Error: Illegal archive path: '%s'", path);
+                end
+            end
+                
             fprintf('ArchiveWriter <%s> - Open\n', path);
-            obj.JavaWriter = no.sintef.autoactive.files.ArchiveWriter(string([pwd '/' path]));
+            obj.JavaWriter = no.sintef.autoactive.files.ArchiveWriter(newpath);
 			obj.isOpen = true;
             obj.traceDisplay(true);
             
