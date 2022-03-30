@@ -8,6 +8,7 @@ classdef no_sintef < autoactive.pluginregister.Register
                 'no.sintef.source' ...
                 'no.sintef.table' ...
                 'no.sintef.video' ...
+                'no.sintef.annotation' ...
                }
     end
     
@@ -18,16 +19,18 @@ classdef no_sintef < autoactive.pluginregister.Register
                     obj = autoactive.Folder();
                 case 'no.sintef.file' 
                     obj = autoactive.File();
-                case 'no.sintef.gaitup'
-                    obj = autoactive.plugins.Gaitup();
-                case 'no.sintef.garmin'
-                    obj = autoactive.plugins.Garmin();
                 case 'no.sintef.session' 
                     obj = autoactive.Session();
                 case 'no.sintef.source' 
                     obj = autoactive.Source();
                 case 'no.sintef.table' 
                     obj = autoactive.plugins.natives.Table();
+                case 'no.sintef.gaitup'
+                    obj = autoactive.plugins.Gaitup();
+                case 'no.sintef.garmin'
+                    obj = autoactive.plugins.Garmin();
+                case 'no.sintef.annotation' 
+                    obj = autoactive.plugins.Annotation();
                 case 'no.sintef.video' 
                     obj = autoactive.Video();
             end

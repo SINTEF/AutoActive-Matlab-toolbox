@@ -7,7 +7,15 @@ classdef ArchiveReader < handle & autoactive.archive.Tracer
     
     methods
         function obj = ArchiveReader(path)
-            obj.path = string([pwd '/' path]);
+            newpath = fullfile(pwd, path);
+            if ~isfile(newpath)
+                newpath = path;
+                if ~isfile(newpath)
+                    error("Error: The archive '%s' was not found", path);
+                end
+            end
+                
+            obj.path = newpath;
             obj.traceDisplay(true);
             obj.contents = obj.getContents();
         end
@@ -79,7 +87,7 @@ classdef ArchiveReader < handle & autoactive.archive.Tracer
                 si.id = '';
                 si.name = sessionInfo;
             else
-                assert(false, 'Cannot interpret sessionInfo');
+                error('Cannot interpret sessionInfo');
             end
             
             if exist('id','var')

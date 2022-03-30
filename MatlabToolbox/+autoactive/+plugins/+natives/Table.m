@@ -40,11 +40,6 @@ classdef Table < autoactive.archive.Dataobject
 
             % Put all the table metadata into the returned json
             jsonStruct.meta = struct();
-            jsonStruct.meta.type = this.type;
-            jsonStruct.meta.version = this.version;
-            jsonStruct.meta.attachments = {elemName};
-            
-            jsonStruct.meta.units = this.tab.Properties.VariableUnits;
 
             % default values
             jsonStruct.meta.is_world_clock = false;
@@ -55,6 +50,11 @@ classdef Table < autoactive.archive.Dataobject
                 fieldName = fields{i};
                 jsonStruct.meta.(fieldName) = ud.(fieldName);
             end
+            
+            jsonStruct.meta.type = this.type;
+            jsonStruct.meta.version = this.version;
+            jsonStruct.meta.units = this.tab.Properties.VariableUnits;
+            jsonStruct.meta.attachments = {elemName};
         end
         
         function this = fromJsonStructRec(this, jsonStruct, sessionId, archiveReader)
@@ -85,8 +85,9 @@ classdef Table < autoactive.archive.Dataobject
                     case 'version'
                         % TBD Block too high version
                     case 'units'
-                        if strcmp(class(jsonStruct.meta.units), 'cell')
-                            this.tab.Properties.VariableUnits = jsonStruct.meta.units;
+                        if iscell(class(jsonStruct.meta.units))
+                            units = jsonStruct.meta.units;
+                            this.tab.Properties.VariableUnits = units;
                         end
                     otherwise
                         ud.(fields{i}) = jsonStruct.meta.(fields{i});
