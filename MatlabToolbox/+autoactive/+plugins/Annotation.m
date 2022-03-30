@@ -7,6 +7,12 @@ classdef Annotation < autoactive.archive.Dataobject & handle
     end
     
     methods (Access=public)
+        function this = Annotation()
+            this = this@autoactive.archive.Dataobject();
+            this.user.('annotations') = struct('timestamp', {}, 'type', {});
+            this.user.('annotationInfo') = containers.Map('KeyType', 'double','ValueType','any');
+            this.user.('isWorldSynchronized') = false;
+        end
         function this = addAnnotation(this, timestamp, annotationId)
             annotations = this.user.('annotations');
             annotations(end+1) = struct('timestamp', timestamp, 'type', annotationId);
@@ -26,7 +32,20 @@ classdef Annotation < autoactive.archive.Dataobject & handle
             
             % Matlab writes empty elements as [], fill all as '' instead
             annotationInfo = this.user.('annotationInfo');
+            
+            % There seems to be a bug with jsonencode where a single element
+            % in a map is stored inside an additional list element.
+            % Adding a second dummy annotation to avoid this.
+            if annotationInfo.Count == 1
+                annotationKeys = keys(annotationInfo);
+                annotationId = annotationKeys{1} + 1;
+                warning("Due to an inconsistency in Matlab's jsonencode there must be at least two elements. Adding empty annotation %d to prevent this.", annotationId)
+                this.setAnnotationInfo(annotationId, "", "", "");
+            end
+            
             annotationKeys = keys(annotationInfo);
+            
+            
             for i = 1:length(annotationKeys)
                 key = annotationKeys{i};
                 info = annotationInfo(key);
@@ -41,6 +60,7 @@ classdef Annotation < autoactive.archive.Dataobject & handle
                 end
                 annotationInfo(key) = info;
             end
+            
             this.user.('annotationInfo') = annotationInfo;
 
             % Create a map with the keys as char instead of double (as it
