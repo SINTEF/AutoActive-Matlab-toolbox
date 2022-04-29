@@ -1,5 +1,5 @@
 # AutoActive Matlab toolbox
-Updated 18 May 2021
+Updated 28 April 2022
 
 SINTEF - https://www.sintef.com
 
@@ -26,6 +26,13 @@ The ffmpeg toolbox is required for synchromizing multiple videos within an archi
 
 ## Examples
 Multiple examples are given in the GettingStarted section in the Matlab toolbox.
+Examples can also be found online here:
+https://github.com/SINTEF/AutoActive-Matlab-toolbox/tree/master/MatlabToolbox/examples
+
+## Download and install the AutoActive Matlab toolbox
+A binary distribution of the Matlab toolbox can be downloaded as an "Asset" for the releases at the toolbox Github page:
+https://github.com/SINTEF/AutoActive-Matlab-toolbox
+Open the ".mltbx" file in Matlab to install the toolbox.
 
 ## How to build the AutoActive Matlab toolbox
 This repository conatins files needed to make a Matlab toolbox for AutoActive
@@ -64,15 +71,3 @@ There is two java projects that contributes to the toolbox.
 15) Commit changes in autoactive-matlab-toolbox repository
 16) Tag project with version number in git
 
-## How to install the Matlab toolbox in the Matlab GUI
-1) Open Matlab
-2) Locate the folder with the file 'AutoActive.mltbx' and make it current folder in Matlab
-3) Double click the file to install it.
-
-## How to install the Matlab toolbox without using the Matlab GUI
-1) Open Matlab
-2) Find the location of the .mltbx file 
-3) Put the path into a string 
-   tboxFile = 'C:\Users\...\...\autoactive-matlab\AutoActive.mltbx'
-4) Install the toolbox 
-   matlab.addons.toolbox.installToolbox(tboxFile)
