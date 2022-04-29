@@ -27,11 +27,14 @@ The ffmpeg toolbox is required for synchromizing multiple videos within an archi
 ## Examples
 Multiple examples are given in the GettingStarted section in the Matlab toolbox.
 Examples can also be found online here:
+
 https://github.com/SINTEF/AutoActive-Matlab-toolbox/tree/master/MatlabToolbox/examples
 
 ## Download and install the AutoActive Matlab toolbox
 A binary distribution of the Matlab toolbox can be downloaded as an "Asset" for the releases at the toolbox Github page:
+
 https://github.com/SINTEF/AutoActive-Matlab-toolbox
+
 Open the ".mltbx" file in Matlab to install the toolbox.
 
 ## How to build the AutoActive Matlab toolbox
