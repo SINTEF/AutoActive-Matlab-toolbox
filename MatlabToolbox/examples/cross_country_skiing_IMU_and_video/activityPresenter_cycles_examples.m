@@ -1,3 +1,11 @@
+%% Cross country skiing example with ActivityPresenter
+%
+%
+%
+% Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
+% Date: April 2022
+% Latest update: 25.05.2022
+
 clear all;
 close all;
 
