@@ -79,15 +79,15 @@ filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
 %% Add annotation, need updated toolbox
 % Based on the plot in Figure 1 manually annotate the classical cross
 % country skiing subtechniques
-DIA = [29:30 47:72 91:111]
-DP = [32:45 110:115];
-TCK = [79 113]; 
+DIA = [20:21 38:62 75:95]
+DP = [23:35 98:109];
+TCK = [68 97]; 
 
 annotationProvider = autoactive.plugins.Annotation();
 annotation_id = 1;
 for cycle = DIA
     mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
-                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))])
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
     annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
 end
 annotationProvider.setAnnotationInfo(annotation_id, 'Diagonal Stride', 'DIA', 'XC classical skiing diagonal stride');
@@ -95,7 +95,7 @@ annotationProvider.setAnnotationInfo(annotation_id, 'Diagonal Stride', 'DIA', 'X
 annotation_id = 2;
 for cycle = DP
     mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
-                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))])
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
     annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
 end
 annotationProvider.setAnnotationInfo(annotation_id, 'Double Poling', 'DP', 'XC classical skiing double poling');
@@ -103,7 +103,7 @@ annotationProvider.setAnnotationInfo(annotation_id, 'Double Poling', 'DP', 'XC c
 annotation_id = 3;
 for cycle = TCK
     mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
-                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))])
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
     annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
 end
 annotationProvider.setAnnotationInfo(annotation_id, 'Downhill Tucking', 'TCK', 'XC classical skiing downhill tucking');
@@ -131,7 +131,7 @@ sw.video = video;
 sw.annotation = annotationProvider;
 
 % create archive object and file with name testSine.aaz
-aw = autoactive.ArchiveWriter('XC_skiing_with_cycles_test.aaz');
+aw = autoactive.ArchiveWriter([data_path,'/../XC_skiing_with_cycles_test.aaz']);
 % write session to archive
 aw.saveSession(sw);
 aw.close()        
