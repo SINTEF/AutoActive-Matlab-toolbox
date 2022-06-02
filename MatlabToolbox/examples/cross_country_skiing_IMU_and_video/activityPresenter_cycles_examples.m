@@ -70,23 +70,26 @@ for i = 1:length(peaks)-1
 end
 
 %% Plot result to investigate
-figure(1);hold all;
+figure(1);clf;hold all;
 subplot(211);hold all;
-plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,gaitup.sensor0ST283.accel.data_accel1);
-plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_xaxis_filtered_hard)
-plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_yaxis_filtered_hard)
-plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard)
-plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator);
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,gaitup.sensor0ST283.accel.data_accel1,'DisplayName','x-axis raw');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_xaxis_filtered_hard,'DisplayName','x-axis filtered');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_yaxis_filtered_hard,'DisplayName','y-axis filtered');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,'DisplayName','z-axis filtered');
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator,'DisplayName','cycle indicator');
 for kk=1:length(peaks)
     text(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(kk)),3,num2str(kk));
 end
+legend; xlim([750 790])
+title('Accelerometer data');xlabel('Time');ylabel('Amplitude')
 subplot(212);hold all;
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_xaxis_filtered_hard,'DisplayName','x-axis');
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_yaxis_filtered_hard,'DisplayName','y-axis')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_zaxis_filtered_hard,'DisplayName','z-axis')
-plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),-amp,'*')
-plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500);
-legend
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),amp,'*','DisplayName','peak')
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500,'DisplayName','cycle indicator');
+title('Gyroscope data');xlabel('Time');ylabel('Amplitude')
+legend; xlim([750 790])
 
 
 %% Create struct to be written to AutoActive Session
