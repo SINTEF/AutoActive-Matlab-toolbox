@@ -164,7 +164,8 @@ aw = autoactive.ArchiveWriter([data_path,'/../XC_skiing_with_cycles_test.aaz']);
 aw.saveSession(sw);
 aw.close()        
 clear aw;
-%%
+
+%% Implementation of the Gaussian lowpass filter used
 
 function gaussFilter = gaussfilter(sigma)
     fsize=sigma * 6;
