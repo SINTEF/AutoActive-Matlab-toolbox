@@ -1,6 +1,24 @@
 %% Cross country skiing example with ActivityPresenter
-%
-%
+% This example illustrates how to read and syncronize raw IMU data from 
+% Gaitup sensors, manipulate these data, and write the manipuated data 
+% syncronized with video and export this to a .aaz file to be visualized in 
+% ActivityPresenter. The example demonstrates first and foremost how to
+% manipulate the data in MATLAB and how one can visualiz manipulated data 
+% in the ActivityPresenter. Specifically we read IMU data from the chest 
+% and left arm and lowpass the accelerometer data from the chest, and do a
+% hard lowpassfilter of the gyroscope data from the left arm. The peaks of 
+% the filtered gyroscope data is detected to indicate the cycles of the
+% cross country skiier as described in 
+% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018).
+% Automatic classification of sub-techniques in classical cross-country skiing 
+% using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). 
+% https://doi.org/10.3390/s18010075
+
+% ----------------------------------------------
+% Citationware. This code and data is citationware. If you use the data or code from this exampe you need to cite the following two papers:
+% Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
+% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
+% ----------------------------------------------
 %
 % Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
 % Date: April 2022
@@ -9,9 +27,16 @@
 clear all;
 close all;
 
+% This file is in the toolbox, but this sets up the necessary paths
 addpath(genpath('..\..\..\..\AutoActive-Matlab-toolbox\'));
+% Please be sure that you have downloaded the Physilog 5 Matlab Tool Kit
+% from https://research.gaitup.com/support/
+% or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it
+% in the external folder
+addpath('..\..\external\Physilog5MatlabToolKit_v1_5_0\');
 javaaddpath('..\..\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
 
+% Data path to the raw data
 data_path = 'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'
 %% Read raw data from Gaitup Sensors
 dataFolderGaitup = [data_path]; % path to data folder with the '.BIN' files
