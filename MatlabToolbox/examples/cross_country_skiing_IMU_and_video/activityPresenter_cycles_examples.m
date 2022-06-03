@@ -34,7 +34,8 @@ addpath(genpath('..\..\..\..\AutoActive-Matlab-toolbox\'));
 % or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it
 % in the external folder
 addpath('..\..\external\Physilog5MatlabToolKit_v1_5_0\');
-javaaddpath('..\..\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+% Add the compiled .jar file of the Activity Presenter Toolbox
+jar_file = dir('..\..\jar\'); javaaddpath(['..\..\jar\',jar_file(3).name])
 
 % Data path to the raw data
 data_path = 'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'
