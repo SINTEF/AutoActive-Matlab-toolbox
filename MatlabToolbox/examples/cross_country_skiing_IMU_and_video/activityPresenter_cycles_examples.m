@@ -159,7 +159,7 @@ sw.video = video;
 sw.annotation = annotationProvider;
 
 % create archive object and file with name testSine.aaz
-aw = autoactive.ArchiveWriter([data_path,'/../XC_skiing_with_cycles_test.aaz']);
+aw = autoactive.ArchiveWriter(['XC_skiing_with_cycles_test.aaz']);
 % write session to archive
 aw.saveSession(sw);
 aw.close()        
