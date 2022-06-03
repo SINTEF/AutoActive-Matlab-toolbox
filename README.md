@@ -1,5 +1,5 @@
 # AutoActive Matlab toolbox
-Updated 28 April 2022
+Updated 03 June 2022
 
 SINTEF - https://www.sintef.com
 
@@ -12,6 +12,8 @@ AutoActive Research Environment Toolbox provides support for writing and reading
 AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
 
 The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
+
+The toolbox also supports adding annotations to datasets, see examples. 
 
 ## System Requirements
 AutoActive Research Environment Toolbox requires a Matlab version r2018b or newer.
@@ -41,11 +43,9 @@ Open the ".mltbx" file in Matlab to install the toolbox.
 This repository conatins files needed to make a Matlab toolbox for AutoActive
 How to update the java jar file
 There is two java projects that contributes to the toolbox.
-  The main project java-file-interface.
-     Located in the folder Java
-  A renamed version of Apache Commons Compress (org.apache.commons.compress2) to avoid version conflicts in Matlab installation.
-     Located in the folder Compress2
-1) Open the maven projects in NetBeans, Eclipse or similar
+1) The main project java-file-interface, located in the folder Java.
+2) A renamed version of Apache Commons Compress (org.apache.commons.compress2) to avoid version conflicts in Matlab installation, located in the folder Compress2
+1) Open the maven projects in NetBeans using JDK 1.8.
 2) Build the Compress2 project without running the tests. 
      Select Tools->Options->Java->Maven : Check "Skip tests for any build executors not directly releated to testing"
      Avoid doing changes to source code. This should be a clean renamed copy.
@@ -61,7 +61,7 @@ There is two java projects that contributes to the toolbox.
    Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external
 3) Update the Matlab toolkit source code with any changes
 4) Update the version information in 'MatlabToolbox/+autoactive/MatlabVersion.m'
-5) Start Matlab R2018b and make autoactive-matlab-toolbox active folder
+5) Start Matlab R2022a and make autoactive-matlab-toolbox active folder
 6) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
 7) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
 8) Update version information
