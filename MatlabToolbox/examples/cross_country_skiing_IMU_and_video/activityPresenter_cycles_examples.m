@@ -57,7 +57,6 @@ gyro_yaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro2,h_2,'same');
 gyro_zaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro3,h_2,'same');
 
 %% Detect Cycles using gyro on arm
-%[amp,peaks] = findpeaks(gyro_zaxis_filtered_hard,'MinPeakProminence',50);
 [peaks, amp] = peakseek(gyro_zaxis_filtered_hard,100,100);
 
 cycle_indicator = zeros(1,length(gyro_zaxis_filtered_hard));
