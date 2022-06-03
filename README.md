@@ -1,5 +1,5 @@
 # AutoActive Matlab toolbox
-Updated 18 May 2021
+Updated 03 June 2022
 
 SINTEF - https://www.sintef.com
 
@@ -12,6 +12,8 @@ AutoActive Research Environment Toolbox provides support for writing and reading
 AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
 
 The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
+
+The toolbox also supports adding annotations to datasets, see examples. 
 
 ## System Requirements
 AutoActive Research Environment Toolbox requires a Matlab version r2018b or newer.
@@ -26,16 +28,24 @@ The ffmpeg toolbox is required for synchromizing multiple videos within an archi
 
 ## Examples
 Multiple examples are given in the GettingStarted section in the Matlab toolbox.
+Examples can also be found online here:
+
+https://github.com/SINTEF/AutoActive-Matlab-toolbox/tree/master/MatlabToolbox/examples
+
+## Download and install the AutoActive Matlab toolbox
+A binary distribution of the Matlab toolbox can be downloaded as an "Asset" for the releases at the toolbox Github page:
+
+https://github.com/SINTEF/AutoActive-Matlab-toolbox
+
+Open the ".mltbx" file in Matlab to install the toolbox.
 
 ## How to build the AutoActive Matlab toolbox
 This repository conatins files needed to make a Matlab toolbox for AutoActive
 How to update the java jar file
 There is two java projects that contributes to the toolbox.
-  The main project java-file-interface.
-     Located in the folder Java
-  A renamed version of Apache Commons Compress (org.apache.commons.compress2) to avoid version conflicts in Matlab installation.
-     Located in the folder Compress2
-1) Open the maven projects in NetBeans, Eclipse or similar
+1) The main project java-file-interface, located in the folder Java.
+2) A renamed version of Apache Commons Compress (org.apache.commons.compress2) to avoid version conflicts in Matlab installation, located in the folder Compress2
+1) Open the maven projects in NetBeans using JDK 1.8.
 2) Build the Compress2 project without running the tests. 
      Select Tools->Options->Java->Maven : Check "Skip tests for any build executors not directly releated to testing"
      Avoid doing changes to source code. This should be a clean renamed copy.
@@ -51,7 +61,7 @@ There is two java projects that contributes to the toolbox.
    Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external
 3) Update the Matlab toolkit source code with any changes
 4) Update the version information in 'MatlabToolbox/+autoactive/MatlabVersion.m'
-5) Start Matlab R2018b and make autoactive-matlab-toolbox active folder
+5) Start Matlab R2022a and make autoactive-matlab-toolbox active folder
 6) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
 7) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
 8) Update version information
@@ -64,15 +74,3 @@ There is two java projects that contributes to the toolbox.
 15) Commit changes in autoactive-matlab-toolbox repository
 16) Tag project with version number in git
 
-## How to install the Matlab toolbox in the Matlab GUI
-1) Open Matlab
-2) Locate the folder with the file 'AutoActive.mltbx' and make it current folder in Matlab
-3) Double click the file to install it.
-
-## How to install the Matlab toolbox without using the Matlab GUI
-1) Open Matlab
-2) Find the location of the .mltbx file 
-3) Put the path into a string 
-   tboxFile = 'C:\Users\...\...\autoactive-matlab\AutoActive.mltbx'
-4) Install the toolbox 
-   matlab.addons.toolbox.installToolbox(tboxFile)
