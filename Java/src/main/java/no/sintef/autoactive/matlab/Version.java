@@ -10,7 +10,7 @@ package no.sintef.autoactive.matlab;
  * @author steffend
  */
 public class Version {
-    private final static String versionString = "Java-file-interface v1.0.0";
+    private final static String versionString = "Java-file-interface v2.0.0";
     
     public static String getVersionString() {
             return versionString;

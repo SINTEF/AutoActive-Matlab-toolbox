@@ -1,9 +1,11 @@
 # Changelog
+## [2.0.0] - 2022-06-03
+### Changed
+    - Added annotation support
 ## [1.0.0] - 2020-11-03
 ### Changed
     - Updated to Physilog5MatlabToolKit_v1_5_0
     - Updated documentation and repository for open source version
-
 ## [0.9.1] - 2020-02-19
 ### Changed
 	- Corrected version of Java jar file
