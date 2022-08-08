@@ -80,17 +80,19 @@ plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator,'Displa
 for kk=1:length(peaks)
     text(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(kk)),3,num2str(kk));
 end
+ax(1) = gca;
 legend; xlim([750 790])
-title('Accelerometer data');xlabel('Time');ylabel('Amplitude')
+title('Accelerometer data from chest');xlabel('Time');ylabel('Amplitude')
 subplot(212);hold all;
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_xaxis_filtered_hard,'DisplayName','x-axis');
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_yaxis_filtered_hard,'DisplayName','y-axis')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_zaxis_filtered_hard,'DisplayName','z-axis')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),amp,'*','DisplayName','peak')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500,'DisplayName','cycle indicator');
-title('Gyroscope data');xlabel('Time');ylabel('Amplitude')
+title('Gyroscope data data from arm');xlabel('Time');ylabel('Amplitude')
 legend; xlim([750 790])
-
+ax(2) = gca;
+linkaxes(ax,'x');
 
 %% Create struct to be written to AutoActive Session
 t = struct();                       % create struct
