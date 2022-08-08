@@ -1,0 +1,3 @@
+1. Both AutoActive Matlab toolbox and AutoActive Research Environment Toolbox is used as name
+2. For lang "Descriptions". Denne dukker også opp under "eksempler"
+3. Flytte "Eksempler fra getting started"??

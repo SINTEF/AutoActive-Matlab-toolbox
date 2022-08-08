@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<toc version="2.0">
+<tocitem target="AutoActiveMatlabToolbox.html" image="$toolbox/matlab/icons/book_mat.gif">AutoActive Matlab Toolbox
+	
+    <tocitem target="https://www.sintef.no/projectweb/autoactive/">Auto Active Project Website</tocitem>
+    <tocitem target="https://github.com/SINTEF/AutoActive-Matlab-toolbox">Auto Active Matlab Toolbox Repository</tocitem>
+    <tocitem target="https://apps.microsoft.com/store/detail/activity-presenter/9N01V94LJLX7">Activity Presenter</tocitem>
+    
+</tocitem>
+</toc>

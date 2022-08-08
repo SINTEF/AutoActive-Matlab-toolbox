@@ -1,0 +1,447 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>activityPresenter_cycles_examples</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-08-08"><meta name="DC.source" content="activityPresenter_cycles_examples.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Cross country skiing example with ActivityPresenter</a></li><li><a href="#2">Read raw data from Gaitup Sensors</a></li><li><a href="#3">Filter data</a></li><li><a href="#4">Detect Cycles using gyro on arm</a></li><li><a href="#5">Plot result to investigate</a></li><li><a href="#6">Create struct to be written to AutoActive Session</a></li><li><a href="#7">Add annotation</a></li><li><a href="#9">Implementation of the Gaussian lowpass filter used</a></li></ul></div><h2 id="1">Cross country skiing example with ActivityPresenter</h2><p>This example illustrates how to read and syncronize raw IMU data from Gaitup sensors, manipulate these data, and write the manipuated data syncronized with video and export this to a .aaz file to be visualized in ActivityPresenter. The example demonstrates first and foremost how to manipulate the data in MATLAB and how one can visualiz manipulated data in the ActivityPresenter. Specifically we read IMU data from the chest and left arm and lowpass the accelerometer data from the chest, and do a hard lowpassfilter of the gyroscope data from the left arm. The peaks of the filtered gyroscope data is detected to indicate the cycles of the cross country skiier as described in Rindal, O. M. H., Seeberg, T. M., Tj&oslash;nn&aring;s, J., Haugnes, P., &amp; Sandbakk, &Oslash;. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). <a href="https://doi.org/10.3390/s18010075">https://doi.org/10.3390/s18010075</a></p><pre class="codeinput"><span class="comment">% ----------------------------------------------</span>
+<span class="comment">% Citationware. This code and data is citationware. If you use the data or code from this exampe you need to cite the following two papers:</span>
+<span class="comment">% Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., H&oslash;genes, J., Jahren, S. E., &#8230; Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061</span>
+<span class="comment">% Rindal, O. M. H., Seeberg, T. M., Tj&oslash;nn&aring;s, J., Haugnes, P., &amp; Sandbakk, &Oslash;. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075</span>
+<span class="comment">% ----------------------------------------------</span>
+<span class="comment">%</span>
+<span class="comment">% Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)</span>
+<span class="comment">% Date: April 2022</span>
+<span class="comment">% Latest update: 25.05.2022</span>
+
+clear <span class="string">all</span>;
+close <span class="string">all</span>;
+
+<span class="comment">% This file is in the toolbox, but this sets up the necessary paths</span>
+addpath(genpath(<span class="string">'..\..\..\..\AutoActive-Matlab-toolbox\'</span>));
+<span class="comment">% Please be sure that you have downloaded the Physilog 5 Matlab Tool Kit</span>
+<span class="comment">% from https://research.gaitup.com/support/</span>
+<span class="comment">% or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it</span>
+<span class="comment">% in the external folder</span>
+addpath(<span class="string">'..\..\external\Physilog5MatlabToolKit_v1_5_0\'</span>);
+<span class="comment">% Add the compiled .jar file of the Activity Presenter Toolbox</span>
+jar_file = dir(<span class="string">'..\..\jar\'</span>); javaaddpath([<span class="string">'..\..\jar\'</span>,jar_file(3).name])
+
+<span class="comment">% Data path to the raw data</span>
+data_path = <span class="string">'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'</span>
+</pre><pre class="codeoutput">Warning: "java-file-interface-2.0.0-jar-with-dependencies.jar" is already
+specified on static java path. 
+
+data_path =
+
+    'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'
+
+</pre><h2 id="2">Read raw data from Gaitup Sensors</h2><pre class="codeinput">dataFolderGaitup = [data_path]; <span class="comment">% path to data folder with the '.BIN' files</span>
+gaitup = autoactive.plugins.Gaitup(); <span class="comment">% create the matlab struct to import the gaitup files to</span>
+gaitup = gaitup.loadFilesToFolder(dataFolderGaitup);
+</pre><pre class="codeoutput">start reading gaitup data
+%% Loading 2 Files %%
+Reading : D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\0LA301.BIN
+%%%% Reading Header %%%%
+------- Physilog : ID = 1301 ---------
+&gt; Location : LA ---------
+&gt; Type : = 0 / Firmware = 1.2.6/ ---------
+&gt; Number of active sensors = 5 
+&gt;&gt;&gt; 1) accel / Fs = 256 Hz
+&gt;&gt;&gt; 2) gyro / Fs = 256 Hz
+&gt;&gt;&gt; 3) baro / Fs = 16 Hz
+&gt;&gt;&gt; 4) events / Fs = 256 Hz
+&gt;&gt;&gt; 5) radio / Fs = 256 Hz
+%%%% Reading data %%%%
+Reading part:1/1
+Number of sectors: 1741 
+&gt;&gt; 0 / 1741 sectors contain invalid data.
+Missing sectors: 0 
+
+Reading : D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\0ST283.BIN
+%%%% Reading Header %%%%
+------- Physilog : ID = 1283 ---------
+&gt; Location : ST ---------
+&gt; Type : = 0 / Firmware = 1.2.6/ ---------
+&gt; Number of active sensors = 5 
+&gt;&gt;&gt; 1) accel / Fs = 256 Hz
+&gt;&gt;&gt; 2) gyro / Fs = 256 Hz
+&gt;&gt;&gt; 3) baro / Fs = 16 Hz
+&gt;&gt;&gt; 4) events / Fs = 256 Hz
+&gt;&gt;&gt; 5) radio / Fs = 256 Hz
+%%%% Reading data %%%%
+Reading part:1/1
+Number of sectors: 1696 
+&gt;&gt; 0 / 1696 sectors contain invalid data.
+Missing sectors: 0 
+
+%% 2 Files sucessfully read %%
+%%%% Synchronizing files %%%%
+done reading gaitup data
+start organizing gaitup data
+done organizing gaitup data
+</pre><h2 id="3">Filter data</h2><p>Create two Guasian filters with two different cutoff</p><pre class="codeinput">h = gaussfilter(10);
+h_2 = gaussfilter(15);
+
+acc_xaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel1,h,<span class="string">'same'</span>);
+acc_yaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel2,h,<span class="string">'same'</span>);
+acc_zaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel3,h,<span class="string">'same'</span>);
+
+gyro_xaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro1,h_2,<span class="string">'same'</span>);
+gyro_yaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro2,h_2,<span class="string">'same'</span>);
+gyro_zaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro3,h_2,<span class="string">'same'</span>);
+</pre><h2 id="4">Detect Cycles using gyro on arm</h2><pre class="codeinput">[peaks, amp] = peakseek(gyro_zaxis_filtered_hard,100,100);
+
+cycle_indicator = zeros(1,length(gyro_zaxis_filtered_hard));
+<span class="keyword">for</span> i = 1:length(peaks)-1
+    <span class="keyword">if</span> mod(i,2)
+        cycle_indicator(peaks(i):peaks(i+1)) = 3;
+    <span class="keyword">else</span>
+        cycle_indicator(peaks(i):peaks(i+1)) = -2;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="5">Plot result to investigate</h2><pre class="codeinput">figure(1);clf;hold <span class="string">all</span>;
+subplot(211);hold <span class="string">all</span>;
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,gaitup.sensor0ST283.accel.data_accel1,<span class="string">'DisplayName'</span>,<span class="string">'x-axis raw'</span>);
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_xaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'x-axis filtered'</span>);
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_yaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'y-axis filtered'</span>);
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'z-axis filtered'</span>);
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator,<span class="string">'DisplayName'</span>,<span class="string">'cycle indicator'</span>);
+<span class="keyword">for</span> kk=1:length(peaks)
+    text(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(kk)),3,num2str(kk));
+<span class="keyword">end</span>
+ax(1) = gca;
+legend; xlim([750 790])
+title(<span class="string">'Accelerometer data from chest'</span>);xlabel(<span class="string">'Time'</span>);ylabel(<span class="string">'Amplitude'</span>)
+subplot(212);hold <span class="string">all</span>;
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_xaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'x-axis'</span>);
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_yaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'y-axis'</span>)
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_zaxis_filtered_hard,<span class="string">'DisplayName'</span>,<span class="string">'z-axis'</span>)
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),amp,<span class="string">'*'</span>,<span class="string">'DisplayName'</span>,<span class="string">'peak'</span>)
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500,<span class="string">'DisplayName'</span>,<span class="string">'cycle indicator'</span>);
+title(<span class="string">'Gyroscope data data from arm'</span>);xlabel(<span class="string">'Time'</span>);ylabel(<span class="string">'Amplitude'</span>)
+legend; xlim([750 790])
+ax(2) = gca;
+linkaxes(ax,<span class="string">'x'</span>);
+</pre><img vspace="5" hspace="5" src="activityPresenter_cycles_examples_01.png" alt=""> <h2 id="6">Create struct to be written to AutoActive Session</h2><pre class="codeinput">t = struct();                       <span class="comment">% create struct</span>
+t.time = int64(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1*1e6);          <span class="comment">% create time vector in micro seconds</span>
+t.cycle_indicator = cycle_indicator';      <span class="comment">% create sine vector</span>
+
+filtered_acc_chest = struct();
+filtered_acc_chest.time = int64(gaitup.sensor0ST283.accel.corrected_timestamps_accel1*1e6);
+filtered_acc_chest.x_axis = acc_xaxis_filtered_hard;
+filtered_acc_chest.y_axis = acc_yaxis_filtered_hard;
+filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
+</pre><h2 id="7">Add annotation</h2><p>Based on the plot in Figure 1 manually annotate the classical cross country skiing subtechniques</p><pre class="codeinput">DIA = [20:21 38:62 75:95];
+DP = [23:35 98:109];
+TCK = [68 97];
+
+annotationProvider = autoactive.plugins.Annotation();
+annotation_id = 1;
+<span class="keyword">for</span> cycle = DIA
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))<span class="keyword">...</span>
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+<span class="keyword">end</span>
+annotationProvider.setAnnotationInfo(annotation_id, <span class="string">'Diagonal Stride'</span>, <span class="string">'DIA'</span>, <span class="string">'XC classical skiing diagonal stride'</span>);
+
+annotation_id = 2;
+<span class="keyword">for</span> cycle = DP
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))<span class="keyword">...</span>
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+<span class="keyword">end</span>
+annotationProvider.setAnnotationInfo(annotation_id, <span class="string">'Double Poling'</span>, <span class="string">'DP'</span>, <span class="string">'XC classical skiing double poling'</span>);
+
+annotation_id = 3;
+<span class="keyword">for</span> cycle = TCK
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))<span class="keyword">...</span>
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+<span class="keyword">end</span>
+annotationProvider.setAnnotationInfo(annotation_id, <span class="string">'Downhill Tucking'</span>, <span class="string">'TCK'</span>, <span class="string">'XC classical skiing downhill tucking'</span>);
+</pre><p>create session object</p><pre class="codeinput">sw = autoactive.Session(<span class="string">'XC Skiing'</span>);
+
+<span class="comment">% convert struct t to table and add autoactive session</span>
+sw.cycle_indicator = struct2table(t);
+sw.cycle_indicator.Properties.VariableUnits{<span class="string">'time'</span>} = <span class="string">'Epocms'</span>;
+sw.cycle_indicator.Properties.UserData = struct();        <span class="comment">% mandatory metadata for archive</span>
+
+sw.filtered_acc_chest = struct2table(filtered_acc_chest);
+sw.filtered_acc_chest.Properties.VariableUnits{<span class="string">'time'</span>} = <span class="string">'Epocms'</span>;
+sw.filtered_acc_chest.Properties.UserData = struct();        <span class="comment">% mandatory metadata for archive</span>
+
+video = autoactive.Video();
+video = video.addVideoToArchive([data_path,<span class="string">'/dataset_1_OMHR_compressed.mp4'</span>]);
+offset = gaitup.sensor0ST283.accel.corrected_timestamps_accel1(1)*1e6 + 7*10^6;
+video = video.setStartTime(offset);
+sw.video = video;
+
+sw.annotation = annotationProvider;
+
+<span class="comment">% create archive object and file with name testSine.aaz</span>
+aw = autoactive.ArchiveWriter([<span class="string">'XC_skiing_with_cycles_test.aaz'</span>]);
+<span class="comment">% write session to archive</span>
+aw.saveSession(sw);
+aw.close()
+clear <span class="string">aw</span>;
+</pre><pre class="codeoutput">ArchiveWriter &lt;XC_skiing_with_cycles_test.aaz&gt; - Open
+Session &lt;XC Skiing&gt; - Writing data
+autoactive.ArchiveWriter: Saving table &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/cycle_indicator.parquet&gt;
+autoactive.ArchiveWriter: Saving table &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/filtered_acc_chest.parquet&gt;
+Saving file to &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/video/dataset_1_OMHR_compressed.mp4&gt;
+autoactive.ArchiveWriter: Saving data &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/video/dataset_1_OMHR_compressed.mp4&gt; from &lt;D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\/dataset_1_OMHR_compressed.mp4&gt;
+autoactive.ArchiveWriter: Saving textdata &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/Annotations/Annotations.json&gt;
+autoactive.ArchiveWriter: Saving metadata &lt;6d9c8397-dd98-404b-941b-a7d537a7534e/AUTOACTIVE_SESSION.json&gt;
+Session &lt;XC Skiing&gt; - End
+autoactive.ArchiveWriter: ArchiveWriter &lt;XC_skiing_with_cycles_test.aaz&gt; - Closing
+</pre><h2 id="9">Implementation of the Gaussian lowpass filter used</h2><pre class="codeinput"><span class="keyword">function</span> gaussFilter = gaussfilter(sigma)
+    fsize=sigma * 6;
+    x = linspace(-fsize / 2, fsize / 2, fsize);
+    gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
+    gaussFilter = gaussFilter / sum (gaussFilter); <span class="comment">% normalize</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Cross country skiing example with ActivityPresenter
+% This example illustrates how to read and syncronize raw IMU data from 
+% Gaitup sensors, manipulate these data, and write the manipuated data 
+% syncronized with video and export this to a .aaz file to be visualized in 
+% ActivityPresenter. The example demonstrates first and foremost how to
+% manipulate the data in MATLAB and how one can visualiz manipulated data 
+% in the ActivityPresenter. Specifically we read IMU data from the chest 
+% and left arm and lowpass the accelerometer data from the chest, and do a
+% hard lowpassfilter of the gyroscope data from the left arm. The peaks of 
+% the filtered gyroscope data is detected to indicate the cycles of the
+% cross country skiier as described in 
+% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018).
+% Automatic classification of sub-techniques in classical cross-country skiing 
+% using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). 
+% https://doi.org/10.3390/s18010075
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% Citationware. This code and data is citationware. If you use the data or code from this exampe you need to cite the following two papers:
+% Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
+% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%
+% Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
+% Date: April 2022
+% Latest update: 25.05.2022
+
+clear all;
+close all;
+
+% This file is in the toolbox, but this sets up the necessary paths
+addpath(genpath('..\..\..\..\AutoActive-Matlab-toolbox\'));
+% Please be sure that you have downloaded the Physilog 5 Matlab Tool Kit
+% from https://research.gaitup.com/support/
+% or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it
+% in the external folder
+addpath('..\..\external\Physilog5MatlabToolKit_v1_5_0\');
+% Add the compiled .jar file of the Activity Presenter Toolbox
+jar_file = dir('..\..\jar\'); javaaddpath(['..\..\jar\',jar_file(3).name])
+
+% Data path to the raw data
+data_path = 'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'
+%% Read raw data from Gaitup Sensors
+dataFolderGaitup = [data_path]; % path to data folder with the '.BIN' files
+gaitup = autoactive.plugins.Gaitup(); % create the matlab struct to import the gaitup files to
+gaitup = gaitup.loadFilesToFolder(dataFolderGaitup); 
+
+%% Filter data
+% Create two Guasian filters with two different cutoff 
+h = gaussfilter(10);
+h_2 = gaussfilter(15);
+
+acc_xaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel1,h,'same');
+acc_yaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel2,h,'same');
+acc_zaxis_filtered_hard = conv(gaitup.sensor0ST283.accel.data_accel3,h,'same');
+
+gyro_xaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro1,h_2,'same');
+gyro_yaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro2,h_2,'same');
+gyro_zaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro3,h_2,'same');
+
+%% Detect Cycles using gyro on arm
+[peaks, amp] = peakseek(gyro_zaxis_filtered_hard,100,100);
+
+cycle_indicator = zeros(1,length(gyro_zaxis_filtered_hard));
+for i = 1:length(peaks)-1
+    if mod(i,2)
+        cycle_indicator(peaks(i):peaks(i+1)) = 3;
+    else
+        cycle_indicator(peaks(i):peaks(i+1)) = -2;
+    end
+end
+
+%% Plot result to investigate
+figure(1);clf;hold all;
+subplot(211);hold all;
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,gaitup.sensor0ST283.accel.data_accel1,'DisplayName','x-axis raw');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_xaxis_filtered_hard,'DisplayName','x-axis filtered');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_yaxis_filtered_hard,'DisplayName','y-axis filtered');
+plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,'DisplayName','z-axis filtered');
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator,'DisplayName','cycle indicator');
+for kk=1:length(peaks)
+    text(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(kk)),3,num2str(kk));
+end
+ax(1) = gca;
+legend; xlim([750 790])
+title('Accelerometer data from chest');xlabel('Time');ylabel('Amplitude')
+subplot(212);hold all;
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_xaxis_filtered_hard,'DisplayName','x-axis');
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_yaxis_filtered_hard,'DisplayName','y-axis')
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_zaxis_filtered_hard,'DisplayName','z-axis')
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),amp,'*','DisplayName','peak')
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500,'DisplayName','cycle indicator');
+title('Gyroscope data data from arm');xlabel('Time');ylabel('Amplitude')
+legend; xlim([750 790])
+ax(2) = gca;
+linkaxes(ax,'x');
+
+%% Create struct to be written to AutoActive Session
+t = struct();                       % create struct
+t.time = int64(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1*1e6);          % create time vector in micro seconds
+t.cycle_indicator = cycle_indicator';      % create sine vector
+
+filtered_acc_chest = struct();
+filtered_acc_chest.time = int64(gaitup.sensor0ST283.accel.corrected_timestamps_accel1*1e6);
+filtered_acc_chest.x_axis = acc_xaxis_filtered_hard;
+filtered_acc_chest.y_axis = acc_yaxis_filtered_hard;
+filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
+
+
+%% Add annotation
+% Based on the plot in Figure 1 manually annotate the classical cross
+% country skiing subtechniques
+DIA = [20:21 38:62 75:95];
+DP = [23:35 98:109];
+TCK = [68 97]; 
+
+annotationProvider = autoactive.plugins.Annotation();
+annotation_id = 1;
+for cycle = DIA
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+end
+annotationProvider.setAnnotationInfo(annotation_id, 'Diagonal Stride', 'DIA', 'XC classical skiing diagonal stride');
+
+annotation_id = 2;
+for cycle = DP
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+end
+annotationProvider.setAnnotationInfo(annotation_id, 'Double Poling', 'DP', 'XC classical skiing double poling');
+
+annotation_id = 3;
+for cycle = TCK
+    mean_time = mean([gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle))...
+                      gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(cycle+1))]);
+    annotationProvider.addAnnotation(mean_time*1e6, annotation_id);
+end
+annotationProvider.setAnnotationInfo(annotation_id, 'Downhill Tucking', 'TCK', 'XC classical skiing downhill tucking');
+
+
+%%
+% create session object
+sw = autoactive.Session('XC Skiing');
+
+% convert struct t to table and add autoactive session
+sw.cycle_indicator = struct2table(t);                             
+sw.cycle_indicator.Properties.VariableUnits{'time'} = 'Epocms';
+sw.cycle_indicator.Properties.UserData = struct();        % mandatory metadata for archive
+
+sw.filtered_acc_chest = struct2table(filtered_acc_chest);
+sw.filtered_acc_chest.Properties.VariableUnits{'time'} = 'Epocms';
+sw.filtered_acc_chest.Properties.UserData = struct();        % mandatory metadata for archive
+
+video = autoactive.Video();
+video = video.addVideoToArchive([data_path,'/dataset_1_OMHR_compressed.mp4']);
+offset = gaitup.sensor0ST283.accel.corrected_timestamps_accel1(1)*1e6 + 7*10^6;
+video = video.setStartTime(offset);
+sw.video = video;
+
+sw.annotation = annotationProvider;
+
+% create archive object and file with name testSine.aaz
+aw = autoactive.ArchiveWriter(['XC_skiing_with_cycles_test.aaz']);
+% write session to archive
+aw.saveSession(sw);
+aw.close()        
+clear aw;
+
+%% Implementation of the Gaussian lowpass filter used
+
+function gaussFilter = gaussfilter(sigma)
+    fsize=sigma * 6;
+    x = linspace(-fsize / 2, fsize / 2, fsize);
+    gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
+    gaussFilter = gaussFilter / sum (gaussFilter); % normalize
+end
+##### SOURCE END #####
+--></body></html>

@@ -1,4 +1,8 @@
 # Changelog
+## [2.1.0] - 2022-08-08
+### Changed
+    - Added example with cross country skiing
+    - Updated documentation of toolbox to include examples	
 ## [2.0.0] - 2022-06-03
 ### Changed
     - Added annotation support
