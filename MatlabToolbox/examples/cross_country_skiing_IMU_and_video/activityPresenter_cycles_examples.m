@@ -106,10 +106,10 @@ filtered_acc_chest.y_axis = acc_yaxis_filtered_hard;
 filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
 
 
-%% Add annotation, need updated toolbox
+%% Add annotation
 % Based on the plot in Figure 1 manually annotate the classical cross
 % country skiing subtechniques
-DIA = [20:21 38:62 75:95]
+DIA = [20:21 38:62 75:95];
 DP = [23:35 98:109];
 TCK = [68 97]; 
 
