@@ -154,7 +154,7 @@ sw.filtered_acc_chest.Properties.UserData = struct();        % mandatory metadat
 
 video = autoactive.Video();
 video = video.addVideoToArchive([data_path,'/dataset_1_OMHR_compressed.mp4']);
-offset = gaitup.sensor0ST283.accel.corrected_timestamps_accel1(1)*1e6 + 7.5*10^6;
+offset = gaitup.sensor0ST283.accel.corrected_timestamps_accel1(1)*1e6 + 7*10^6;
 video = video.setStartTime(offset);
 sw.video = video;
 
