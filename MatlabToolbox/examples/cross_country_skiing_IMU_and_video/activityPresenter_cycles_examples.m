@@ -13,7 +13,7 @@
 % Automatic classification of sub-techniques in classical cross-country skiing 
 % using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). 
 % https://doi.org/10.3390/s18010075
-
+%
 % ----------------------------------------------
 % Citationware. This code and data is citationware. If you use the data or code from this exampe you need to cite the following two papers:
 % Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
@@ -60,12 +60,12 @@ gyro_zaxis_filtered_hard = conv(gaitup.sensor0LA301.gyro.data_gyro3,h_2,'same');
 %% Detect Cycles using gyro on arm
 [peaks, amp] = peakseek(gyro_zaxis_filtered_hard,100,100);
 
-cycle_indicator = zeros(1,length(gyro_zaxis_filtered_hard));
+cycle_indications = zeros(1,length(gyro_zaxis_filtered_hard));
 for i = 1:length(peaks)-1
     if mod(i,2)
-        cycle_indicator(peaks(i):peaks(i+1)) = 3;
+        cycle_indications(peaks(i):peaks(i+1)) = 3;
     else
-        cycle_indicator(peaks(i):peaks(i+1)) = -2;
+        cycle_indications(peaks(i):peaks(i+1)) = -2;
     end
 end
 
@@ -76,7 +76,7 @@ plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,gaitup.sensor0ST283.a
 plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_xaxis_filtered_hard,'DisplayName','x-axis filtered');
 plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_yaxis_filtered_hard,'DisplayName','y-axis filtered');
 plot(gaitup.sensor0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,'DisplayName','z-axis filtered');
-plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator,'DisplayName','cycle indicator');
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indications,'DisplayName','cycle indicator');
 for kk=1:length(peaks)
     text(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks(kk)),3,num2str(kk));
 end
@@ -88,16 +88,16 @@ plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_xaxis_filtered_har
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_yaxis_filtered_hard,'DisplayName','y-axis')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,gyro_zaxis_filtered_hard,'DisplayName','z-axis')
 plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1(peaks),amp,'*','DisplayName','peak')
-plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indicator*500,'DisplayName','cycle indicator');
+plot(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1,cycle_indications*500,'DisplayName','cycle indicator');
 title('Gyroscope data data from arm');xlabel('Time');ylabel('Amplitude')
 legend; xlim([750 790])
 ax(2) = gca;
 linkaxes(ax,'x');
 
 %% Create struct to be written to AutoActive Session
-t = struct();                       % create struct
-t.time = int64(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1*1e6);          % create time vector in micro seconds
-t.cycle_indicator = cycle_indicator';      % create sine vector
+cycle_indicator = struct();                       % create struct
+cycle_indicator.time = int64(gaitup.sensor0LA301.gyro.corrected_timestamps_gyro1*1e6);          % create time vector in micro seconds
+cycle_indicator.cycle_indicator = cycle_indications';      % create sine vector
 
 filtered_acc_chest = struct();
 filtered_acc_chest.time = int64(gaitup.sensor0ST283.accel.corrected_timestamps_accel1*1e6);
@@ -108,11 +108,15 @@ filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
 
 %% Add annotation
 % Based on the plot in Figure 1 manually annotate the classical cross
-% country skiing subtechniques
+% country skiing subtechniques. We will only annotate the cycles that are:
+% DIA = Diagonal Stride,  annotation ID = 1
+% DP = Dobbel Poling,  annotation ID = 2
+% TCK = Tucking (Downhill), annotation ID = 3
 DIA = [20:21 38:62 75:95];
 DP = [23:35 98:109];
 TCK = [68 97]; 
 
+% Define an object of the annotation plugin
 annotationProvider = autoactive.plugins.Annotation();
 annotation_id = 1;
 for cycle = DIA
@@ -139,29 +143,43 @@ end
 annotationProvider.setAnnotationInfo(annotation_id, 'Downhill Tucking', 'TCK', 'XC classical skiing downhill tucking');
 
 
-%%
-% create session object
+%% Write to Auto Active .aaz file
+% Finally, we are going to write the data we want to display in the
+% Activity Presenter program in a Auto Active .aaz file. We want to display
+% the following data:
+%   + cycle indication 
+%   + filtered accelerometer data from the chest sensor
+%   + synchronized video
+%   + annotations of type of sub technique for each cycle
+
+% Create Auto Active Activity Presenter session object
 sw = autoactive.Session('XC Skiing');
 
-% convert struct t to table and add autoactive session
-sw.cycle_indicator = struct2table(t);                             
+% add the cycle indication to the session object.
+sw.cycle_indicator = struct2table(cycle_indicator);
+% mandatory metadata for archive
 sw.cycle_indicator.Properties.VariableUnits{'time'} = 'Epocms';
-sw.cycle_indicator.Properties.UserData = struct();        % mandatory metadata for archive
+sw.cycle_indicator.Properties.UserData = struct();        
 
+% add filtered accelerometer data to the object
 sw.filtered_acc_chest = struct2table(filtered_acc_chest);
 sw.filtered_acc_chest.Properties.VariableUnits{'time'} = 'Epocms';
 sw.filtered_acc_chest.Properties.UserData = struct();        % mandatory metadata for archive
 
+% add information of the video to be stored in the .aaz file
 video = autoactive.Video();
 video = video.addVideoToArchive([data_path,'/dataset_1_OMHR_compressed.mp4']);
+% calculate the video offset compared to the data
 offset = gaitup.sensor0ST283.accel.corrected_timestamps_accel1(1)*1e6 + 7*10^6;
 video = video.setStartTime(offset);
 sw.video = video;
 
+% Add annotations
 sw.annotation = annotationProvider;
 
-% create archive object and file with name testSine.aaz
-aw = autoactive.ArchiveWriter(['XC_skiing_with_cycles_test.aaz']);
+% create archive object and file with name "XC_skiing_with_cycles". This
+% file can be read in the Activity Presenter software.
+aw = autoactive.ArchiveWriter(['XC_skiing_with_cycles.aaz']);
 % write session to archive
 aw.saveSession(sw);
 aw.close()        
