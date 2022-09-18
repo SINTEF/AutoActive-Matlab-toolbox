@@ -1,11 +1,11 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="368741634" file="C:\Repositories\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Repositories\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
-    <param.appname>AutoActive Research Environment Toolbox</param.appname>
+  <configuration build-checksum="1909269112" file="C:\Repositories\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Repositories\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>AutoActive MATLAB Toolbox</param.appname>
     <param.authnamewatermark>Anders Liverud</param.authnamewatermark>
     <param.email>anders.liverud@sintef.no</param.email>
     <param.company>SINTEF</param.company>
     <param.summary>Toolbox for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records.</param.summary>
-    <param.description>AutoActive Research Environment Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
+    <param.description>AutoActive MATLAB Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
 AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
 The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
 
@@ -17,7 +17,7 @@ Key Features
 - Annotations</param.description>
     <param.screenshot>${PROJECT_ROOT}\AutoActive.JPG</param.screenshot>
     <param.version>2.1.0</param.version>
-    <param.output>${PROJECT_ROOT}\AutoActive Research Environment Toolbox.mltbx</param.output>
+    <param.output>${PROJECT_ROOT}\AutoActive MATLAB Toolbox.mltbx</param.output>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -111,7 +111,7 @@ Key Features
     </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="AutoActive Research Environment Toolbox.mltbx" optional="false">C:\Repositories\AutoActive-Matlab-toolbox\AutoActive Research Environment Toolbox.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="AutoActive MATLAB Toolbox.mltbx" optional="false">C:\Repositories\AutoActive-Matlab-toolbox\AutoActive MATLAB Toolbox.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
