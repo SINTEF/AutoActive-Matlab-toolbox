@@ -14,11 +14,13 @@
 % using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). 
 % https://doi.org/10.3390/s18010075
 %
-% ----------------------------------------------
-% Citationware. This code and data is citationware. If you use the data or code from this exampe you need to cite the following two papers:
-% Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
-% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
-% ----------------------------------------------
+% Data: The data from this example can be manually downloaded from 
+% https://github.com/SINTEF/AutoActive-Matlab-toolbox/releases/download/v2.0.0_dataset/AutoActive_SampleData_xc_skiing.zip
+%
+% Citationware: This code and data is citationware. If you use the data or 
+% code from this exampe you need to cite the following two papers:
+% * Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
+% * Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
 %
 % Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
 % Date: April 2022
