@@ -39,10 +39,19 @@ addpath('..\..\external\Physilog5MatlabToolKit_v1_5_0\');
 % Add the compiled .jar file of the Activity Presenter Toolbox
 jar_file = dir('..\..\jar\'); javaaddpath(['..\..\jar\',jar_file(3).name])
 
+data_path = 'example_data'
+if ~isfile([data_path,'/raw_data/dataset_1_OMHR_compressed.mp4'])
+    data_url = "https://github.com/SINTEF/AutoActive-Matlab-toolbox/releases/download/v2.0.0_dataset/AutoActive_SampleData_xc_skiing.zip"
+    mkdir(data_path);
+    filename = "example_data/example_data.zip"
+    websave(filename,data_url);
+    unzip(filename,data_path);
+end
+%%
 % Data path to the raw data
-data_path = 'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\'
+%data_path = 'D:\OneDrive\SINTEF\(SEP) Bevegelsesanalyse - datasett\ClassicalXCSkiing_Linderudkollen\raw_data\';
 %% Read raw data from Gaitup Sensors
-dataFolderGaitup = [data_path]; % path to data folder with the '.BIN' files
+dataFolderGaitup = [data_path,'/raw_data/']; % path to data folder with the '.BIN' files
 gaitup = autoactive.plugins.Gaitup(); % create the matlab struct to import the gaitup files to
 gaitup = gaitup.loadFilesToFolder(dataFolderGaitup); 
 
