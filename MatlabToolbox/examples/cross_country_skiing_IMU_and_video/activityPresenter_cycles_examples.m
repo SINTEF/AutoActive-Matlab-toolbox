@@ -42,7 +42,7 @@ addpath(genpath('../../../../AutoActive-Matlab-toolbox/'));
 % from https://research.gaitup.com/support/
 % or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it
 % in the external folder
-addpath('../../external/hysilog5MatlabToolKit_v1_5_0/');
+addpath('../../external/Physilog5MatlabToolKit_v1_5_0/');
 % Add the compiled .jar file of the Activity Presenter Toolbox
 jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
 
