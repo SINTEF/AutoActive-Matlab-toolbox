@@ -32,6 +32,10 @@
 % Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
 % Date: April 2022
 % Latest update: 19.09.2022
+%
+% TODO: #1 Improve documentation of code
+%       #2 Figure out why files are not included
+%       #3 How can I build example with package but sill exclude the Physilog5 Toolbox
 
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the
@@ -52,6 +56,7 @@ addpath('../../external/Physilog5MatlabToolKit_v1_5_0/');
 % Add the compiled .jar file of the Activity Presenter Toolbox
 jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
 
+% Check if data is allready downloaded. If not, download and unzip!
 data_path = 'example_data'
 if ~isfile([data_path,'/raw_data/dataset_1_OMHR_compressed.mp4'])
     fprintf('Downloading and unzipping data...');
@@ -60,6 +65,7 @@ if ~isfile([data_path,'/raw_data/dataset_1_OMHR_compressed.mp4'])
     filename = "example_data/example_data.zip";
     websave(filename,data_url);
     unzip(filename,data_path);
+    delete(filename)
     fprintf('...done!\n');
 end
 
