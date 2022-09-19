@@ -1,0 +1,82 @@
+{
+  "type": "no.sintef.ui.player_page",
+  "player_container": {
+    "type": "no.sintef.ui.placeablecontainer",
+    "container": [],
+    "size_weight_horizontal": 100.0,
+    "size_weight_vertical": 100.0,
+    "children": {
+      "vertical": [
+        "horizontal"
+      ],
+      "horizontal": [
+        {
+          "type": "no.sintef.ui.placeableitem",
+          "item": {
+            "data_point_objects": "[{\"Indexes\":[1,0],\"Names\":[\"filtered_acc_chest\",\"x_axis\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.ArchivePlugins.Table.ArchiveTable, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"},{\"Indexes\":[1,1],\"Names\":[\"filtered_acc_chest\",\"y_axis\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.ArchivePlugins.Table.ArchiveTable, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"},{\"Indexes\":[1,2],\"Names\":[\"filtered_acc_chest\",\"z_axis\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.ArchivePlugins.Table.ArchiveTable, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"},{\"Indexes\":[3,0],\"Names\":[\"annotation\",\"Annotations\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.Import.Json.AnnotationProvider, SINTEF.AutoActive.Plugins.Import, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"System.Int32, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"},{\"Indexes\":[0,0],\"Names\":[\"cycle_indicator\",\"cycle_indicator\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.ArchivePlugins.Table.ArchiveTable, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"System.Double, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"}]",
+            "type": "no.sintef.ui.figureview",
+            "lineParameters": {
+              "type": "no.sintef.ui.figureview",
+              "autoscale_independent": false,
+              "scaling_frozen": false,
+              "show_only_ints": false,
+              "min_y_value": -2.0,
+              "max_y_value": 3.0,
+              "prev_min_y_value": -2.06839943,
+              "prev_max_y_value": 3.06839943,
+              "line_offset_ys": [
+                3.06839943,
+                3.06839943,
+                3.06839943,
+                3.06839943,
+                3.06839943
+              ],
+              "line_scale_ys": [
+                -146.2,
+                -146.2,
+                -146.2,
+                -146.2,
+                -146.2
+              ],
+              "plot_type": "\"Line\""
+            }
+          },
+          "view_id": "21456e3a-aaa8-49c5-9f95-368f8e147a7f",
+          "weight": 100.0,
+          "master_layout_weight": 100.0,
+          "children": [
+            {
+              "item": {
+                "type": "no.sintef.ui.placeableitem",
+                "item": {
+                  "data_point_objects": "[{\"Indexes\":[2,0],\"Names\":[\"video\",\"Video\"],\"DataTypes\":[\"SINTEF.AutoActive.Plugins.ArchivePlugins.Video.ArchiveVideo, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\",\"SINTEF.AutoActive.Plugins.ArchivePlugins.Video.ArchiveVideoVideo, SINTEF.AutoActive.Plugins.ArchivePlugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"],\"ArchiveId\":\"4dece4eb-90d7-424a-acbb-79c6ea296697\"}]",
+                  "type": "no.sintef.ui.figureview"
+                },
+                "view_id": "86ee5231-8cef-443c-aaf4-24a2c05e4724",
+                "weight": 100.0,
+                "master_layout_weight": 100.0,
+                "children": [],
+                "parent_size_weight_horizontal": 100.0,
+                "parent_size_weight_vertical": 100.0,
+                "size_weight_horizontal": 100.0,
+                "size_weight_vertical": 100.0
+              },
+              "location": "\"Left\""
+            }
+          ],
+          "parent_size_weight_horizontal": 100.0,
+          "parent_size_weight_vertical": 100.0,
+          "size_weight_horizontal": 100.0,
+          "size_weight_vertical": 100.0
+        }
+      ]
+    }
+  },
+  "playbar": {
+    "type": "no.sintef.ui.playbar_view",
+    "preview_figure": null,
+    "window_size": 10000000,
+    "playback_speed": 1.0
+  },
+  "serializer_version": "1.0.0"
+}
