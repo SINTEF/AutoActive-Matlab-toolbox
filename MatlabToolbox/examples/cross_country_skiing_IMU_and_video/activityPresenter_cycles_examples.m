@@ -23,9 +23,15 @@
 % * Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
 % * Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
 %
+% *Known issues when running this script*:
+%
+% * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
+% * You need to install the Physilog 5 Matlab Tool Kit by downloading from https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder
+% * You need to have Python installed and awailable to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
+%
 % Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
 % Date: April 2022
-% Latest update: 25.05.2022
+% Latest update: 19.09.2022
 
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the
