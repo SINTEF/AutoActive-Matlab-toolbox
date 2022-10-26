@@ -1,4 +1,16 @@
-javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+% Run script test_archive_sine.m first. This will create the aaz file
+% 'testSine.aaz' that will be used in this script. Before running this
+% script: run test_archive_sine.m, go to Activity presenter, open 'testSine.aaz',
+% synchronize the curves and save the project in a new aaz file called
+% 'testSineSynced.aaz' in the same folder.
+
+% *Known issues when running this script*:
+% * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
+
+
+% javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
+
 % Read table and metadata from original AutoActive Archive
 orig_ar = autoactive.ArchiveReader('testSine.aaz');
 
