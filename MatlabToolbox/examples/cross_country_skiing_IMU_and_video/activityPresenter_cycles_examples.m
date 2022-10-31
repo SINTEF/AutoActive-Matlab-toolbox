@@ -34,8 +34,10 @@
 % Latest update: 19.09.2022
 %
 % TODO: #1 Improve documentation of code
-%       #2 Figure out why files are not included
+%       # When building:
+%       #2 Figure out why files are not excluded
 %       #3 How can I build example with package but sill exclude the Physilog5 Toolbox
+%       #Sjekke alle eksempler før vi pakker. Er det avhengige av spesifikk versjon av .jar?
 
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the
