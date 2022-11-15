@@ -1,27 +1,47 @@
 %% Cross country skiing example with ActivityPresenter
+% Data from wearable microsensors such as inertial movement sensors (IMUs) 
+% are revolutionizing the analysis of movement. It allows researchers to
+% bring the lab to the field, resulting in more relevant data for the 
+% analysis of movements in sports. However, there has been a lack of available
+% tools to easily analyze the data. Especially, synchronizing the ground 
+% truth video of the movement of an athlete with the recorded data from microsensors
+% has been challenging. SINTEF have developed an open source AutoActive Research
+% Environment (ARE) [1] consisting of easy-to-use software with a graphical user
+% interface, ActivityPresenter, to visualize, synchronize, and organize data
+% from sensors and cameras as well as a supporting MATLAB and python toolbox. 
+% We demonstrate this software suite by sharing a dataset to analyze 
+% sub-techniques in classical cross country skiing [2]. The data and code
+% are available at https://www.sintef.no/projectweb/autoactive/code-example/.
+%
+% We recorded data from IMU sensors mounted on the arm and chest as well as 
+% a video recording of a subject doing cross classical cross-country skiing.
+% The raw accelerometer and gyroscope data was processed in MATLAB with 
+% individual cycles of movements detected and labeled as described in [2]. 
+% The processed IMU data and cycle indications as well as sub-technique labels
+% were synchronized with the video and written to an AutoActiveZip (aaz) file 
+% using the ARE MATLAB toolbox. 
+%
+% The processed data from the accelerometer on the chest is visualized in 
+% ActivityPresenter together with the cycle identification. Annotations are
+% visible as DIA (diagonal) in the bottom of the plot. The data and video 
+% can be played as a movie or stepped through  frame-by-frame. Additional 
+% annotations can be added by pre-selected keys per sub-techniques.
+%
 % This example illustrates how to read and syncronize raw IMU data from 
 % Gaitup sensors, manipulate these data, and write the manipuated data 
 % syncronized with video and export this to a .aaz file to be visualized in 
 % ActivityPresenter. The example demonstrates first and foremost how to
 % manipulate the data in MATLAB and how one can visualiz manipulated data 
-% in the ActivityPresenter. Specifically we read IMU data from the chest 
-% and left arm and lowpass the accelerometer data from the chest, and do a
-% hard lowpassfilter of the gyroscope data from the left arm. The peaks of 
-% the filtered gyroscope data is detected to indicate the cycles of the
-% cross country skiier as described in 
-% Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018).
-% Automatic classification of sub-techniques in classical cross-country skiing 
-% using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). 
-% https://doi.org/10.3390/s18010075
+% in the ActivityPresenter. 
 %
-% *Data:* The data from this example can be manually downloaded from 
+% *Data:* The data in this example is automatically downloaded, but can be manually downloaded from 
 % https://github.com/SINTEF/AutoActive-Matlab-toolbox/releases/download/v2.0.0_dataset/AutoActive_SampleData_xc_skiing.zip
 %
 % *Citationware:* This code and data is citationware. 
 % If you use the data or code from this exampe you need to cite the following two papers:
 %
-% * Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., … Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
-% * Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
+% * [1] Albrektsen, S., Rasmussen, K. G. B., Liverud, A. E., Dalgard, S., Høgenes, J., Jahren, S. E., Kocbach J., Seeberg, T. M. (2022). The AutoActive Research Environment. Journal of Open Source Software, 7(72), 4061. https://doi.org/10.21105/joss.04061
+% * [2] Rindal, O. M. H., Seeberg, T. M., Tjønnås, J., Haugnes, P., & Sandbakk, Ø. (2018). Automatic classification of sub-techniques in classical cross-country skiing using a machine learning algorithm on micro-sensor data. MDPI Sensors, 18(1). https://doi.org/10.3390/s18010075
 %
 % *Known issues when running this script*:
 %
@@ -29,19 +49,13 @@
 % * You need to install the Physilog 5 Matlab Tool Kit by downloading from https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder
 % * You need to have Python installed and awailable to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
 %
-% Author: Ole Marius Hoel Rindal (olemarius.rindal@sintef.no)
+% Author: Ole Marius Hoel Rindal (olemarius@olemarius.net)
 % Date: April 2022
-% Latest update: 19.09.2022
+% Latest update: 14.11.2022
 %
-% TODO: #1 Improve documentation of code
-%       # When building:
-%       #2 Figure out why files are not excluded
-%       #3 How can I build example with package but sill exclude the Physilog5 Toolbox
-%       #Sjekke alle eksempler før vi pakker. Er det avhengige av spesifikk versjon av .jar?
-
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the
-% physiolog matlab toolkit do be able to read the IMU data from the gait up
+% physiolog MATLAB toolkit do be able to read the IMU data from the gait up
 % sensors. The data and video used in this example is downloaded from the
 % url below to the github repository.
 
@@ -79,73 +93,103 @@ end
 dataFolderGaitup = [data_path,'/raw_data/']; % path to data folder with the '.BIN' files
 gaitup = autoactive.plugins.Gaitup(); % create the matlab struct to import the gaitup files to
 gaitup = gaitup.loadFilesToFolder(dataFolderGaitup); 
+fs = gaitup.sensorexample_data.raw_data.x0LA301.info.baseFrequency;
 
 %% Filter data
-% Create two Guasian filters with two different cutoff 
+% Create two Guasian filters with two different cutoff frequencies.
 h = gaussfilter(10);
 h_2 = gaussfilter(15);
 
+% Analyze the filter responses of the two lowpass filters.
+[h1,w1] = freqz(h,1,256,fs);hold all;
+[h2,w2] = freqz(h_2,1,256,fs,'r');hold all;
+figure(1);clf;
+plot(w1,db(abs(h1)),'LineWidth',2); hold all;
+plot(w2,db(abs(h2)),'LineWidth',2);
+ylim([-90 0]); ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
+title('Response of the lowpass filters');
+legend('Hard lowpass filter','Softer lowpass filter');
+set(gca,'FontSize',15)
+
+% Filter the accelerometer data with the first lowpass filter
 acc_xaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0ST283.accel.data_accel1,h,'same');
 acc_yaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0ST283.accel.data_accel2,h,'same');
 acc_zaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0ST283.accel.data_accel3,h,'same');
 accel_time = gaitup.sensorexample_data.raw_data.x0ST283.accel.corrected_timestamps_accel1;
 
+% Filter the gyroscope data with the second lowpass filter
 gyro_xaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0LA301.gyro.data_gyro1,h_2,'same');
 gyro_yaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0LA301.gyro.data_gyro2,h_2,'same');
 gyro_zaxis_filtered_hard = conv(gaitup.sensorexample_data.raw_data.x0LA301.gyro.data_gyro3,h_2,'same');
 gyro_time = gaitup.sensorexample_data.raw_data.x0LA301.gyro.corrected_timestamps_gyro1;
-%% Detect Cycles using gyro on arm
+
+%% Detect cycles using gyro on arm
+% The cycles are detected by finding the peaks of the hard filtered
+% gyroscope data from the arm. The peaks corresponds to the arm beeing
+% exteded all the way behind the athlete.
 [peaks, amp] = peakseek(gyro_zaxis_filtered_hard,100,100);
 
+% Create a cycle indicator plot alternating from 3.2 to -2 between every
+% detected cycle. This results in a signal that can be plotted together
+% with the original data with horizontal transitions indicating the cycles
 cycle_indications = zeros(1,length(gyro_zaxis_filtered_hard));
 for i = 1:length(peaks)-1
     if mod(i,2)
-        cycle_indications(peaks(i):peaks(i+1)) = 3;
+        cycle_indications(peaks(i):peaks(i+1)) = 3.2;
     else
         cycle_indications(peaks(i):peaks(i+1)) = -2;
     end
 end
 
 %% Plot result to investigate
-figure(1);clf;hold all;
+% Plot the accelerometer from the chest, both a trace of the unfiltered
+% data as well as the filtered data from all axes. The cycles are indicated
+% with horizontal lines as well as numbers to indicate each individual cycle. 
+% The second subplot si the gyroscope data from the arm, indicating the
+% z-axis used to detect the cycles.
+figure(2);clf;hold all;
 subplot(211);hold all;
-plot(accel_time,gaitup.sensorexample_data.raw_data.x0ST283.accel.data_accel1,'DisplayName','x-axis raw');
-plot(accel_time,acc_xaxis_filtered_hard,'DisplayName','x-axis filtered');
-plot(accel_time,acc_yaxis_filtered_hard,'DisplayName','y-axis filtered');
-plot(gaitup.sensorexample_data.raw_data.x0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,'DisplayName','z-axis filtered');
+plot(accel_time,gaitup.sensorexample_data.raw_data.x0ST283.accel.data_accel1,'DisplayName','x-axis raw','LineWidth',2);
+plot(accel_time,acc_xaxis_filtered_hard,'DisplayName','x-axis filtered','LineWidth',2);
+plot(accel_time,acc_yaxis_filtered_hard,'DisplayName','y-axis filtered','LineWidth',2);
+plot(gaitup.sensorexample_data.raw_data.x0ST283.accel.corrected_timestamps_accel1,acc_zaxis_filtered_hard,'DisplayName','z-axis filtered','LineWidth',2);
 plot(gyro_time,cycle_indications,'DisplayName','cycle indicator');
 for kk=1:length(peaks)
     text(gyro_time(peaks(kk)),3,num2str(kk));
 end
-ax(1) = gca;
-legend; xlim([750 790])
+ax(1) = gca; set(gca,'FontSize',15);
+legend; xlim([750 790]);ylim([-2,3.1]);
 title('Accelerometer data from chest');xlabel('Time');ylabel('Amplitude')
 subplot(212);hold all;
-plot(gyro_time,gyro_xaxis_filtered_hard,'DisplayName','x-axis');
-plot(gyro_time,gyro_yaxis_filtered_hard,'DisplayName','y-axis')
-plot(gyro_time,gyro_zaxis_filtered_hard,'DisplayName','z-axis')
+plot(gyro_time,gyro_xaxis_filtered_hard,'DisplayName','x-axis','LineWidth',2);
+plot(gyro_time,gyro_yaxis_filtered_hard,'DisplayName','y-axis','LineWidth',2);
+plot(gyro_time,gyro_zaxis_filtered_hard,'DisplayName','z-axis','LineWidth',2);
 plot(gyro_time(peaks),amp,'*','DisplayName','peak')
 plot(gyro_time,cycle_indications*500,'DisplayName','cycle indicator');
 title('Gyroscope data data from arm');xlabel('Time');ylabel('Amplitude')
-legend; xlim([750 790])
-ax(2) = gca;
+legend('Location','se'); xlim([750 790]); ylim([-900 600]);
+ax(2) = gca; set(gca,'FontSize',15);
 linkaxes(ax,'x');
+set(gcf,'Position',[0 0 1000 750]);
 
 %% Create struct to be written to AutoActive Session
-cycle_indicator = struct();                       % create struct
-                                    % create time vector in micro seconds
-cycle_indicator.time = int64(gyro_time*1e6);          
-cycle_indicator.cycle_indicator = cycle_indications';% create sine vector
+% Create two structs to be written to the Auto Active Zip (aaz) file. The
+% first struct is the cycle indication the second struct is the filtered
+% accelerated data. The time in the structs are the syncronization between
+% the signals.
+cycle_indicator = struct();                       
+cycle_indicator.time = int64(gyro_time*1e6); % time in micro seconds          
+cycle_indicator.cycle_indicator = cycle_indications';
 
 filtered_acc_chest = struct();
-filtered_acc_chest.time = int64(accel_time*1e6);
+filtered_acc_chest.time = int64(accel_time*1e6); % time in micro seconds  
 filtered_acc_chest.x_axis = acc_xaxis_filtered_hard;
 filtered_acc_chest.y_axis = acc_yaxis_filtered_hard;
 filtered_acc_chest.z_axis = acc_zaxis_filtered_hard;
 
 
 %% Add annotation
-% Based on the plot in Figure 1 manually annotate the classical cross
+% Based on the plot in Figure 2 we manually annotate the classical cross
 % country skiing subtechniques. We will only annotate the cycles that are:
 % * DIA = Diagonal Stride,  annotation ID = 1
 % * DP = Dobbel Poling,  annotation ID = 2
@@ -154,7 +198,8 @@ DIA = [20:21 38:62 75:95];
 DP = [23:35 98:109];
 TCK = [68 97]; 
 
-% Define an object of the annotation plugin
+% Define an object of the annotation plugin for each subtechnique class. 
+% We are using the mean time of a cycle as the time for the annotation
 annotationProvider = autoactive.plugins.Annotation();
 annotation_id = 1;
 for cycle = DIA
@@ -183,7 +228,7 @@ annotationProvider.setAnnotationInfo(annotation_id, 'Downhill Tucking', 'TCK', '
 
 %% Write to Auto Active .aaz file
 % Finally, we are going to write the data we want to display in the
-% Activity Presenter program in a Auto Active .aaz file. We want to display
+% Activity Presenter program in a Auto Active Zip .aaz file. We want to display
 % the following data:
 %   + cycle indication 
 %   + filtered accelerometer data from the chest sensor
@@ -224,7 +269,9 @@ aw.close()
 clear aw;
 
 %% Implementation of the Gaussian lowpass filter used
-
+% The lowpass filter used in this is example is included for simplicity. It
+% is a simple Gaussian lowpass filter used at two different cutoff
+% frequencies. 
 function gaussFilter = gaussfilter(sigma)
     fsize=sigma * 6;
     x = linspace(-fsize / 2, fsize / 2, fsize);
