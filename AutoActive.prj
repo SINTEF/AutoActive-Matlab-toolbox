@@ -1,11 +1,11 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1918099377" file="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
-    <param.appname>AutoActive Research Environment Toolbox</param.appname>
+  <configuration build-checksum="3654827594" file="C:\Repositories\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Repositories\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>AutoActive MATLAB Toolbox</param.appname>
     <param.authnamewatermark>Anders Liverud</param.authnamewatermark>
     <param.email>anders.liverud@sintef.no</param.email>
     <param.company>SINTEF</param.company>
     <param.summary>Toolbox for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records.</param.summary>
-    <param.description>AutoActive Research Environment Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
+    <param.description>AutoActive MATLAB Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
 AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
 The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
 
@@ -16,20 +16,54 @@ Key Features
 - Merging av data and video from multiple sensor systems for time synchronziation and data analysis/viewing
 - Annotations</param.description>
     <param.screenshot>${PROJECT_ROOT}\AutoActive.JPG</param.screenshot>
-    <param.version>2.0.0</param.version>
-    <param.output>${PROJECT_ROOT}\AutoActive Research Environment Toolbox.mltbx</param.output>
+    <param.version>2.1.0</param.version>
+    <param.output>${PROJECT_ROOT}\AutoActive MATLAB Toolbox.mltbx</param.output>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
     <param.guid>a413ae25-0d31-4a53-9ec5-6f8ade9c624e</param.guid>
-    <param.exclude.filters />
+    <param.exclude.filters>% List files contained in your toolbox folder that you would like to exclude
+% from packaging.  Excludes should be listed relative to the toolbox folder.
+% Some examples of how to specify excludes are provided below:
+%
+% A single file in the toolbox folder:
+% .svn
+%
+% A single file in a subfolder of the toolbox folder:
+% example/.svn
+%
+% All files in a subfolder of the toolbox folder:
+% example/*
+%
+% All files of a certain name in all subfolders of the toolbox folder:
+% **/.svn
+%
+% All files matching a pattern in all subfolders of the toolbox folder:
+% **/*.bak
+%
+% example_data/*
+% example_data/raw_data/*
+% example_data/raw_data/
+example_data/*
+example_data/raw_data/*
+example_data/raw_data/</param.exclude.filters>
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
-    <param.examples />
+    <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;examples&gt;
+   &lt;exampleCategory name="cross_country_skiing_IMU_and_video"&gt;
+      &lt;example name="activityPresenter_cycles_examples" type="html"&gt;
+         &lt;file type="source"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples.html&lt;/file&gt;
+         &lt;file type="main"&gt;/examples/cross_country_skiing_IMU_and_video/activityPresenter_cycles_examples.m&lt;/file&gt;
+         &lt;file type="thumbnail"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples.png&lt;/file&gt;
+         &lt;file type="image"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples_01.png&lt;/file&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+&lt;/examples&gt;</param.examples>
     <param.demosxml />
     <param.apps />
     <param.registered.apps />
-    <param.docs />
+    <param.docs>${PROJECT_ROOT}\MatlabToolbox\info.xml</param.docs>
     <param.getting.started.guide>${PROJECT_ROOT}\MatlabToolbox\doc\GettingStarted.mlx</param.getting.started.guide>
     <param.matlabpath.excludes>
       <item>/external/Physilog5MatlabToolKit_v1_5_0</item>
@@ -37,7 +71,7 @@ Key Features
       <item>/external/Physilog5MatlabToolKit_v1_4_0/help_p_files</item>
     </param.matlabpath.excludes>
     <param.javaclasspath.excludes />
-    <param.exported.on.package>false</param.exported.on.package>
+    <param.exported.on.package>true</param.exported.on.package>
     <param.required.addons />
     <param.matlab.project.id />
     <param.matlab.project.name />
@@ -60,15 +94,11 @@ Key Features
       <param.products.id />
       <param.products.version />
       <param.platforms />
-      <param.exclude.filters />
       <param.exclude.pcodedmfiles />
-      <param.examples />
       <param.demosxml />
       <param.apps />
       <param.registered.apps />
-      <param.docs />
       <param.javaclasspath.excludes />
-      <param.exported.on.package />
       <param.required.addons />
       <param.matlab.project.id />
       <param.matlab.project.name />
@@ -89,21 +119,27 @@ Key Features
     </fileset.rootdir>
     <fileset.rootfiles>
       <file>${PROJECT_ROOT}\MatlabToolbox\+autoactive</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\demos.xml</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\doc</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\examples</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\external</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\helpfiles</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\info.xml</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\jar</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\lib</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\testSine.aaz</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
-    <fileset.depfun.excluded />
+    <fileset.depfun.excluded>
+      <file>C:\Repositories\skiviewer\devJT\microParam\llh2ecef.m</file>
+    </fileset.depfun.excluded>
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="AutoActive Research Environment Toolbox.mltbx" optional="false">C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive Research Environment Toolbox.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="AutoActive MATLAB Toolbox.mltbx" optional="false">C:\Repositories\AutoActive-Matlab-toolbox\AutoActive MATLAB Toolbox.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2022a</root>
+      <root>C:\Program Files\MATLAB\R2020a</root>
       <toolboxes />
     </matlab>
     <platform>
