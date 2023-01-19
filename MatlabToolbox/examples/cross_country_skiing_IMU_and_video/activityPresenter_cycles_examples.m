@@ -104,8 +104,8 @@ h_2 = gaussfilter(15);
 fft_length = 1024; 
 x_axis = linspace(-fs/2,fs/2,fft_length);
 figure;
-plot(x_axis,fftshift(db(abs((fft(h,fft_length))))),'LineWidth',2);hold on; 
-plot(x_axis,fftshift(db(abs((fft(h_2,fft_length))))),'LineWidth',2);
+plot(x_axis,fftshift(20*log10(abs((fft(h,fft_length))))),'LineWidth',2);hold on; 
+plot(x_axis,fftshift(20*log10(abs((fft(h_2,fft_length))))),'LineWidth',2);
 xlim([0 50]);ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
 legend('Hard lowpass filter','Softer lowpass filter');
 set(gca,'FontSize',15)
