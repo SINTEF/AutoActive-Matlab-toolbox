@@ -1,5 +1,5 @@
 # AutoActive Matlab toolbox
-Updated 03 June 2022
+Updated 04 January 2023
 
 SINTEF - https://www.sintef.com
 
@@ -58,7 +58,7 @@ There is two java projects that contributes to the toolbox.
 ## How to update the MatlabToolbox
 1) Code to be included is located in the 'MatlabToolbox' folder
 2) Download Gaitup Matlab ToolKit for Physilog®5 from https://research.gaitup.com/support/ and uncompress and copy the folder 
-   Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external
+   Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external (included in the toolbox from version 2.1, currently not available from GaitUp)
 3) Update the Matlab toolkit source code with any changes
 4) Update the version information in 'MatlabToolbox/+autoactive/MatlabVersion.m'
 5) Start Matlab R2022a and make autoactive-matlab-toolbox active folder

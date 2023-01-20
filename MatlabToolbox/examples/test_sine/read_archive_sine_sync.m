@@ -8,7 +8,7 @@
 % * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
 
 
-% javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+% javaaddpath('.\MatlabToolbox\jar\java-file-interface-2.0.1-jar-with-dependencies.jar')
 jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
 
 % Read table and metadata from original AutoActive Archive

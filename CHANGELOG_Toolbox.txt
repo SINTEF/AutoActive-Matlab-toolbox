@@ -1,8 +1,9 @@
 # Changelog
-## [2.1.0] - 2022-08-08
+## [2.1.0] - 2023-01-20
 ### Changed
     - Added example with cross country skiing
-    - Updated documentation of toolbox to include examples	
+    - Updated documentation of toolbox to include examples
+    - Redistributed Physlog5 files in package to avoid external depencency.
 ## [2.0.0] - 2022-06-03
 ### Changed
     - Added annotation support

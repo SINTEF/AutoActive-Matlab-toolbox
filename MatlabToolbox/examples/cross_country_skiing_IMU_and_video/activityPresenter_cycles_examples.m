@@ -46,12 +46,14 @@
 % *Known issues when running this script*:
 %
 % * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
-% * You need to install the Physilog 5 Matlab Tool Kit by downloading from https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder
-% * You need to have Python installed and awailable to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
+% * You need to install the Physilog 5 Matlab Tool Kit by downloading from:
+% https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder 
+% (Not needed for AutoActive Matlab toolbox 2.1 and later)
+% * You need to have Python installed and available to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
 %
 % Author: Ole Marius Hoel Rindal (olemarius@olemarius.net)
 % Date: April 2022
-% Latest update: 14.11.2022
+% Latest update: 20.01.2023
 %
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the
@@ -101,13 +103,12 @@ h = gaussfilter(10);
 h_2 = gaussfilter(15);
 
 % Analyze the filter responses of the two lowpass filters.
-[h1,w1] = freqz(h,1,256,fs);hold all;
-[h2,w2] = freqz(h_2,1,256,fs,'r');hold all;
-figure(1);clf;
-plot(w1,db(abs(h1)),'LineWidth',2); hold all;
-plot(w2,db(abs(h2)),'LineWidth',2);
-ylim([-90 0]); ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
-title('Response of the lowpass filters');
+fft_length = 1024; 
+x_axis = linspace(-fs/2,fs/2,fft_length);
+figure;
+plot(x_axis,fftshift(20*log10(abs((fft(h,fft_length))))),'LineWidth',2);hold on; 
+plot(x_axis,fftshift(20*log10(abs((fft(h_2,fft_length))))),'LineWidth',2);
+xlim([0 50]);ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
 legend('Hard lowpass filter','Softer lowpass filter');
 set(gca,'FontSize',15)
 

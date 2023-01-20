@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="3654827594" file="C:\Repositories\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Repositories\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="179251027" file="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>AutoActive MATLAB Toolbox</param.appname>
     <param.authnamewatermark>Anders Liverud</param.authnamewatermark>
     <param.email>anders.liverud@sintef.no</param.email>
@@ -44,11 +44,8 @@ Key Features
 %
 % example_data/*
 % example_data/raw_data/*
-% example_data/raw_data/
-example_data/*
-example_data/raw_data/*
-example_data/raw_data/</param.exclude.filters>
-    <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
+% example_data/raw_data/</param.exclude.filters>
+    <param.exclude.pcodedmfiles>false</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
    &lt;exampleCategory name="cross_country_skiing_IMU_and_video"&gt;
@@ -57,6 +54,7 @@ example_data/raw_data/</param.exclude.filters>
          &lt;file type="main"&gt;/examples/cross_country_skiing_IMU_and_video/activityPresenter_cycles_examples.m&lt;/file&gt;
          &lt;file type="thumbnail"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples.png&lt;/file&gt;
          &lt;file type="image"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples_01.png&lt;/file&gt;
+         &lt;file type="image"&gt;/examples/cross_country_skiing_IMU_and_video/html/activityPresenter_cycles_examples_02.png&lt;/file&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
 &lt;/examples&gt;</param.examples>
@@ -65,11 +63,7 @@ example_data/raw_data/</param.exclude.filters>
     <param.registered.apps />
     <param.docs>${PROJECT_ROOT}\MatlabToolbox\info.xml</param.docs>
     <param.getting.started.guide>${PROJECT_ROOT}\MatlabToolbox\doc\GettingStarted.mlx</param.getting.started.guide>
-    <param.matlabpath.excludes>
-      <item>/external/Physilog5MatlabToolKit_v1_5_0</item>
-      <item>/external/Physilog5MatlabToolKit_v1_5_0/help_p_files</item>
-      <item>/external/Physilog5MatlabToolKit_v1_4_0/help_p_files</item>
-    </param.matlabpath.excludes>
+    <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
     <param.exported.on.package>true</param.exported.on.package>
     <param.required.addons />
@@ -94,10 +88,10 @@ example_data/raw_data/</param.exclude.filters>
       <param.products.id />
       <param.products.version />
       <param.platforms />
-      <param.exclude.pcodedmfiles />
       <param.demosxml />
       <param.apps />
       <param.registered.apps />
+      <param.matlabpath.excludes />
       <param.javaclasspath.excludes />
       <param.required.addons />
       <param.matlab.project.id />
@@ -127,20 +121,57 @@ example_data/raw_data/</param.exclude.filters>
       <file>${PROJECT_ROOT}\MatlabToolbox\info.xml</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\jar</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\lib</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\matlab-annot-new.aaz</file>
+      <file>${PROJECT_ROOT}\MatlabToolbox\matlab-annot.aaz</file>
       <file>${PROJECT_ROOT}\MatlabToolbox\testSine.aaz</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
-    <fileset.depfun.excluded>
-      <file>C:\Repositories\skiviewer\devJT\microParam\llh2ecef.m</file>
-    </fileset.depfun.excluded>
+    <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="AutoActive MATLAB Toolbox.mltbx" optional="false">C:\Repositories\AutoActive-Matlab-toolbox\AutoActive MATLAB Toolbox.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="AutoActive MATLAB Toolbox.mltbx" optional="false">C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive MATLAB Toolbox.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2020a</root>
-      <toolboxes />
+      <root>C:\Program Files\MATLAB\R2022b</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
     </matlab>
     <platform>
       <unix>false</unix>
