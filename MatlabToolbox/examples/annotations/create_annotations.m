@@ -12,7 +12,7 @@ if isempty(what('autoactive'))
 
     % Add the compiled .jar file of the Activity Presenter Toolbox
     jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
-%     javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+%     javaaddpath('.\MatlabToolbox\jar\java-file-interface-2.0.1-jar-with-dependencies.jar')
 end
 
 %%

@@ -3,13 +3,13 @@
 % *Known issues when running this script*:
 %
 % * You need to be in the same "current folder" as this script when running in MATLAB (Different from GettingStarted.mlx where MatlabToolbox should be current folder!!)
-% * You need to install the Physilog 5 Matlab Tool Kit by downloading from https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder
 
 addpath(genpath('../../../../AutoActive-Matlab-toolbox/'));
 % Please be sure that you have downloaded the Physilog 5 Matlab Tool Kit
 % from https://research.gaitup.com/support/
 % or https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put it
-% in the external folder
+% in the external folder (Not needed for AutoActive Matlab toolbox 2.1 and
+% later)
 addpath('../../external/Physilog5MatlabToolKit_v1_5_0/');
 
 UserFolder = pwd; % the current folder path (should be the AutoActive Matlab Toolbox folder for this example)

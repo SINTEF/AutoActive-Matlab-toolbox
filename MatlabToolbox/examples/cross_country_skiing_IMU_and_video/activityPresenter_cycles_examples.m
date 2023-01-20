@@ -46,12 +46,14 @@
 % *Known issues when running this script*:
 %
 % * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
-% * You need to install the Physilog 5 Matlab Tool Kit by downloading from https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder
-% * You need to have Python installed and awailable to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
+% * You need to install the Physilog 5 Matlab Tool Kit by downloading from:
+% https://media.gaitup.com/Physilog5MatlabToolKit_v1_5_0.zip and put the extracted folder in the \AutoActive-Matlab-toolbox\MatlabToolbox\external folder 
+% (Not needed for AutoActive Matlab toolbox 2.1 and later)
+% * You need to have Python installed and available to MATLAB. Follow instructions on https://se.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html
 %
 % Author: Ole Marius Hoel Rindal (olemarius@olemarius.net)
 % Date: April 2022
-% Latest update: 14.11.2022
+% Latest update: 20.01.2023
 %
 %% Set up paths, download and unzip data
 % We will first set up the necessary paths for the toolbox and the

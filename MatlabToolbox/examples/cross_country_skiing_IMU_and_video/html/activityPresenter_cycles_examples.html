@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Cross country skiing example with ActivityPresenter</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-14"><meta name="DC.source" content="activityPresenter_cycles_examples.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Cross country skiing example with ActivityPresenter</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-01-20"><meta name="DC.source" content="activityPresenter_cycles_examples.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -146,13 +146,12 @@ done organizing gaitup data
 h_2 = gaussfilter(15);
 
 <span class="comment">% Analyze the filter responses of the two lowpass filters.</span>
-[h1,w1] = freqz(h,1,256,fs);hold <span class="string">all</span>;
-[h2,w2] = freqz(h_2,1,256,fs,<span class="string">'r'</span>);hold <span class="string">all</span>;
-figure(1);clf;
-plot(w1,db(abs(h1)),<span class="string">'LineWidth'</span>,2); hold <span class="string">all</span>;
-plot(w2,db(abs(h2)),<span class="string">'LineWidth'</span>,2);
-ylim([-90 0]); ylabel(<span class="string">'Magnitude [dB]'</span>);xlabel(<span class="string">'Frequency [Hz]'</span>);
-title(<span class="string">'Response of the lowpass filters'</span>);
+fft_length = 1024;
+x_axis = linspace(-fs/2,fs/2,fft_length);
+figure;
+plot(x_axis,fftshift(20*log10(abs((fft(h,fft_length))))),<span class="string">'LineWidth'</span>,2);hold <span class="string">on</span>;
+plot(x_axis,fftshift(20*log10(abs((fft(h_2,fft_length))))),<span class="string">'LineWidth'</span>,2);
+xlim([0 50]);ylabel(<span class="string">'Magnitude [dB]'</span>);xlabel(<span class="string">'Frequency [Hz]'</span>);
 legend(<span class="string">'Hard lowpass filter'</span>,<span class="string">'Softer lowpass filter'</span>);
 set(gca,<span class="string">'FontSize'</span>,15)
 
@@ -277,12 +276,12 @@ aw.close()
 clear <span class="string">aw</span>;
 </pre><pre class="codeoutput">ArchiveWriter &lt;XC_skiing_with_cycles.aaz&gt; - Open
 Session &lt;XC Skiing&gt; - Writing data
-autoactive.ArchiveWriter: Saving table &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/cycle_indicator.parquet&gt;
-autoactive.ArchiveWriter: Saving table &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/filtered_acc_chest.parquet&gt;
-Saving file to &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/video/dataset_1_OMHR_compressed.mp4&gt;
-autoactive.ArchiveWriter: Saving data &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/video/dataset_1_OMHR_compressed.mp4&gt; from &lt;example_data/raw_data/dataset_1_OMHR_compressed.mp4&gt;
-autoactive.ArchiveWriter: Saving textdata &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/Annotations/Annotations.json&gt;
-autoactive.ArchiveWriter: Saving metadata &lt;35625232-ae0e-4e29-b4f6-07b2ecd4884a/AUTOACTIVE_SESSION.json&gt;
+autoactive.ArchiveWriter: Saving table &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/cycle_indicator.parquet&gt;
+autoactive.ArchiveWriter: Saving table &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/filtered_acc_chest.parquet&gt;
+Saving file to &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/video/dataset_1_OMHR_compressed.mp4&gt;
+autoactive.ArchiveWriter: Saving data &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/video/dataset_1_OMHR_compressed.mp4&gt; from &lt;example_data/raw_data/dataset_1_OMHR_compressed.mp4&gt;
+autoactive.ArchiveWriter: Saving textdata &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/Annotations/Annotations.json&gt;
+autoactive.ArchiveWriter: Saving metadata &lt;7a3ab2c1-997f-43a2-b51c-b1702de6c18d/AUTOACTIVE_SESSION.json&gt;
 Session &lt;XC Skiing&gt; - End
 autoactive.ArchiveWriter: ArchiveWriter &lt;XC_skiing_with_cycles.aaz&gt; - Closing
 </pre><h2 id="9">Implementation of the Gaussian lowpass filter used</h2><p>The lowpass filter used in this is example is included for simplicity. It is a simple Gaussian lowpass filter used at two different cutoff frequencies.</p><pre class="codeinput"><span class="keyword">function</span> gaussFilter = gaussfilter(sigma)
@@ -291,7 +290,7 @@ autoactive.ArchiveWriter: ArchiveWriter &lt;XC_skiing_with_cycles.aaz&gt; - Clos
     gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
     gaussFilter = gaussFilter / sum (gaussFilter); <span class="comment">% normalize</span>
 <span class="keyword">end</span>
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Cross country skiing example with ActivityPresenter
 % Data from wearable microsensors such as inertial movement sensors (IMUs) 
@@ -396,13 +395,12 @@ h = gaussfilter(10);
 h_2 = gaussfilter(15);
 
 % Analyze the filter responses of the two lowpass filters.
-[h1,w1] = freqz(h,1,256,fs);hold all;
-[h2,w2] = freqz(h_2,1,256,fs,'r');hold all;
-figure(1);clf;
-plot(w1,db(abs(h1)),'LineWidth',2); hold all;
-plot(w2,db(abs(h2)),'LineWidth',2);
-ylim([-90 0]); ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
-title('Response of the lowpass filters');
+fft_length = 1024; 
+x_axis = linspace(-fs/2,fs/2,fft_length);
+figure;
+plot(x_axis,fftshift(20*log10(abs((fft(h,fft_length))))),'LineWidth',2);hold on; 
+plot(x_axis,fftshift(20*log10(abs((fft(h_2,fft_length))))),'LineWidth',2);
+xlim([0 50]);ylabel('Magnitude [dB]');xlabel('Frequency [Hz]');
 legend('Hard lowpass filter','Softer lowpass filter');
 set(gca,'FontSize',15)
 
