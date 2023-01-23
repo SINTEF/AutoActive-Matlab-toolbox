@@ -5,3 +5,4 @@
 *.mltbx
 /MatlabToolbox/external/Physilog5MatlabToolKit_v*
 
+MatlabToolbox/examples/cross_country_skiing_IMU_and_video/example_data/

@@ -1,4 +1,17 @@
-javaaddpath('.\MatlabToolbox\jar\java-file-interface-1.0.0-jar-with-dependencies.jar')
+% Run this script before 'read_archive_sine_sync.m'. In this script a aaz
+% file called 'testSine.aaz' will be created. This file will need to be
+% opened in Activity presenter, synchronized and saved again as
+% 'testSineSynced.aaz' before running 'test_archive_sine_sync.m'
+
+% *Known issues when running this script*:
+%
+% * You need to be in the same "current folder" as the activityPresenter_cycles_examples.m script when running in MATLAB
+
+
+
+% javaaddpath('.\MatlabToolbox\jar\java-file-interface-2.0.1-jar-with-dependencies.jar')
+jar_file = dir('../../jar/'); javaaddpath(['../../jar/',jar_file(3).name])
+
 %************ Fetch source code and put it into a source object ************
 source_obj = autoactive.Source();
 this_script = mfilename('fullpath');
