@@ -38,6 +38,6 @@ https://www.sintef.no/projectweb/autoactive/code-example/
 ## Download and install the AutoActive Matlab toolbox
 A binary distribution of the Matlab toolbox can be downloaded as an "Asset" for the releases at the toolbox Github page:
 
-https://github.com/SINTEF/AutoActive-Matlab-toolbox
+https://github.com/SINTEF/AutoActive-Matlab-toolbox/releases
 
 Open the ".mltbx" file in Matlab to install the toolbox.
