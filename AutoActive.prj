@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="179251027" file="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="3722021085" file="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox\AutoActive.prj" location="C:\Users\aliv\work\autoactive\AutoActive-Matlab-toolbox" name="AutoActive" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>AutoActive MATLAB Toolbox</param.appname>
     <param.authnamewatermark>Anders Liverud</param.authnamewatermark>
     <param.email>anders.liverud@sintef.no</param.email>
