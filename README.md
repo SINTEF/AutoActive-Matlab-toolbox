@@ -1,5 +1,5 @@
 # AutoActive Matlab toolbox
-Updated 04 January 2023
+Updated 23 January 2023
 
 SINTEF - https://www.sintef.com
 
@@ -7,24 +7,23 @@ SINTEF - https://www.sintef.com
 Apache License Version 2.0
 
 ## Description
-AutoActive Research Environment Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). 
+AutoActive Research Environment Toolbox provides support for writing and reading AutoActive Archives (AAZ) of multiple sensor data and video records. The toolbox also includes support for data import from different sensor types (e.g. Garmin, GaitUp, Catapult) and formats (e.g. gpx, csv). Annotations is supported to mark specific part of video and data and is useful as input for machine learning and data analysis.
 
 AAZ archives can be created, viewed and synchronized in ActivityPresenter, and can be read and written in MATLAB and ActivityPresenter as well as Python. The AutoActive Research Environment Toolbox provides the connection between ActivityPresenter used for data exploration/viewing/time synchronization and MATLAB used for data pre- and postprocessing and data analysis.   
 
-The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behavior is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easly extend the toolbox to support their own use-cases by adding custom plugins. 
-
-The toolbox also supports adding annotations to datasets, see examples. 
+The toolbox uses ArchiveWriter and ArchiveReader to write and read AAZ archives, respectively. The toolbox supports the transformations necessary for converting between MATLAB formats and the AAZ storage formats, its behaviour is like a struct element when using it in a MATLAB script. The toolbox is plugin based which means that the user can easily extend the toolbox to support their own use-cases by adding custom plugins. 
 
 ## System Requirements
 AutoActive Research Environment Toolbox requires a Matlab version r2018b or newer.
 
-The ffmpeg toolbox is required for synchromizing multiple videos within an archive, please see "MultipleVideoSync" documentation in the toolbox.
+The ffmpeg toolbox is required for synchronizing multiple videos within an archive, please see "MultipleVideoSync" documentation in the toolbox.
 
 ## Features
 - Import of sensor data from multiple sensor types and formats including videos
 - Read and write AAZ archives from/to ActivityPresenter
-- Convertion between AAZ formats and MATLAB formats
-- Merging of data and video from multiple sensor systems for time synchronziation and data analysis/viewing
+- Conversion between AAZ formats and MATLAB formats
+- Merging of data and video from multiple sensor systems for time synchronization and data analysis/viewing
+- Adding annotations to datasets, see examples
 
 ## Examples
 Multiple examples are given in the GettingStarted section in the Matlab toolbox.
@@ -32,45 +31,13 @@ Examples can also be found online here:
 
 https://github.com/SINTEF/AutoActive-Matlab-toolbox/tree/master/MatlabToolbox/examples
 
+A comprehensive example with cross country skiing data is documented here:
+
+https://www.sintef.no/projectweb/autoactive/code-example/
+
 ## Download and install the AutoActive Matlab toolbox
 A binary distribution of the Matlab toolbox can be downloaded as an "Asset" for the releases at the toolbox Github page:
 
 https://github.com/SINTEF/AutoActive-Matlab-toolbox
 
 Open the ".mltbx" file in Matlab to install the toolbox.
-
-## How to build the AutoActive Matlab toolbox
-This repository conatins files needed to make a Matlab toolbox for AutoActive
-How to update the java jar file
-There is two java projects that contributes to the toolbox.
-1) The main project java-file-interface, located in the folder Java.
-2) A renamed version of Apache Commons Compress (org.apache.commons.compress2) to avoid version conflicts in Matlab installation, located in the folder Compress2
-1) Open the maven projects in NetBeans using JDK 1.8.
-2) Build the Compress2 project without running the tests. 
-     Select Tools->Options->Java->Maven : Check "Skip tests for any build executors not directly releated to testing"
-     Avoid doing changes to source code. This should be a clean renamed copy.
-3) Open the project in the java folder ('java-file-interface')
-4) Update the version information in file 'Version.java' and 'pom.xml' if any update.
-5) Build the java-file-interface project
-6) Remove any old jar file in 'MatlabToolbox/jar' directory
-7) Copy the new jar file 'Java/target/java-file-interface....jar-with-dependencies.jar' to 'MatlabToolbox/jar' directory
-
-## How to update the MatlabToolbox
-1) Code to be included is located in the 'MatlabToolbox' folder
-2) Download Gaitup Matlab ToolKit for Physilog®5 from https://research.gaitup.com/support/ and uncompress and copy the folder 
-   Physilog5MatlabToolKit_vx_y_z with all files to MatlabToolbox\external (included in the toolbox from version 2.1, currently not available from GaitUp)
-3) Update the Matlab toolkit source code with any changes
-4) Update the version information in 'MatlabToolbox/+autoactive/MatlabVersion.m'
-5) Start Matlab R2022a and make autoactive-matlab-toolbox active folder
-6) Right-click on folder MatlabToolbox and select 'Add to Path => Selected Folders and Subfolders'
-7) Open the 'Package toolbox app' by double click on project file 'AutoActive.prj'
-8) Update version information
-9) Check that MATLAB path has eight entries + examples, (remove .../help_p_files if any)
-10) Check that Java Class Path has one correct jar entry
-11) Create package in menu 'Package => Package'
-12) Save project in meny 'Save => Save'
-13) Rename and copy release package for distribution
-14) Update ChangeLog file
-15) Commit changes in autoactive-matlab-toolbox repository
-16) Tag project with version number in git
-
